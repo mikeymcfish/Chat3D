@@ -1,0 +1,38 @@
+{
+  "Item_001": {
+    "mesh_name": "FormLabs",
+    "display_name": "Formlabs Resin Printer",
+    "description": "High-resolution desktop 3D printer for precision resin-based models",
+    "category": "3D printer",
+    "properties": {
+      "material": "resin",
+      "layer_thickness": "25-100 microns",
+      "build_volume": "145x145x185 mm",
+      "model_number": "Form 3"
+    }
+  },
+  "Item_002": {
+    "mesh_name": "Item",
+    "display_name": "Storage Box",
+    "description": "A sturdy container for storing various items",
+    "category": "container",
+    "properties": {
+      "material": "plastic",
+      "dimensions": "300x200x150 mm",
+      "color": "gray",
+      "part_number": "BOX-100"
+    }
+  },
+  "Item_003": {
+    "mesh_name": "LaserCutter",
+    "display_name": "Laser Cutter",
+    "description": "Precision laser cutter for engraving and cutting materials",
+    "category": "cutting tool",
+    "properties": {
+      "material_compatibility": "wood, acrylic, fabric, paper",
+      "cutting_area": "600x400 mm",
+      "laser_power": "40W",
+      "model_number": "LC-5000"
+    }
+  }
+}

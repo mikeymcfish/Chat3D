@@ -1,0 +1,99 @@
+{
+  "functions": [
+    {
+      "name": "get_mesh_info",
+      "description": "Get detailed information about a specific mesh by its name",
+      "strict": true,
+      "parameters": {
+        "type": "object",
+        "properties": {
+          "mesh_name": {
+            "type": "string",
+            "description": "The exact name of the mesh to get information about"
+          }
+        },
+        "additionalProperties": false,
+        "required": [
+          "mesh_name"
+        ]
+      }
+    },
+    {
+      "name": "search_mesh_by_description",
+      "description": "Search for meshes based on their description or display name",
+      "strict": true,
+      "parameters": {
+        "type": "object",
+        "properties": {
+          "query": {
+            "type": "string",
+            "description": "The search term to look for in mesh descriptions or display names"
+          }
+        },
+        "additionalProperties": false,
+        "required": [
+          "query"
+        ]
+      }
+    },
+    {
+      "name": "get_mesh_by_description",
+      "description": "Find a specific mesh name based on description, display name, or aliases",
+      "strict": true,
+      "parameters": {
+        "type": "object",
+        "properties": {
+          "query": {
+            "type": "string",
+            "description": "The search term to find the corresponding mesh name"
+          }
+        },
+        "additionalProperties": false,
+        "required": [
+          "query"
+        ]
+      }
+    },
+    {
+      "name": "highlight_object",
+      "description": "Highlight a specific mesh in the 3D scene",
+      "strict": true,
+      "parameters": {
+        "type": "object",
+        "properties": {
+          "mesh_name": {
+            "type": "string",
+            "description": "The exact internal mesh name to highlight (use get_mesh_by_description first if needed)"
+          },
+          "color": {
+            "type": "string",
+            "description": "Hexadecimal color code for the highlight (e.g., '#FF0000' for red)",
+            "pattern": "^#[0-9A-Fa-f]{6}$"
+          }
+        },
+        "additionalProperties": false,
+        "required": [
+          "mesh_name"
+        ]
+      }
+    },
+    {
+      "name": "zoom_to_object",
+      "description": "Focus the camera on a specific mesh in the scene",
+      "strict": true,
+      "parameters": {
+        "type": "object",
+        "properties": {
+          "mesh_name": {
+            "type": "string",
+            "description": "The exact internal mesh name to zoom to (use get_mesh_by_description first if needed)"
+          }
+        },
+        "additionalProperties": false,
+        "required": [
+          "mesh_name"
+        ]
+      }
+    }
+  ]
+}
