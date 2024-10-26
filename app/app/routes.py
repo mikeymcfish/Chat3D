@@ -93,43 +93,28 @@ def chat():
                 
                 tool_outputs = []
                 for action in required_actions:
-                    print(f"\nProcessing action: {action.function}")
-                    
-                    # Parse the function arguments
                     try:
                         args = json.loads(action.function.arguments)
-                        print(f"Function arguments: {args}")
-                        
-                        # Process each function type
-                        result = None
+                        # Ensure function name matches exactly
                         if action.function.name == "get_mesh_info":
                             result = mesh_manager.get_mesh_info(args["mesh_name"])
-                            
                         elif action.function.name == "search_mesh_by_description":
                             result = mesh_manager.search_mesh_by_description(args["query"])
-                            
                         elif action.function.name == "get_mesh_by_description":
                             result = mesh_manager.get_mesh_by_description(args["query"])
-                            
                         elif action.function.name in ["highlight_object", "zoom_to_object"]:
-                            # First, find the actual mesh name using get_mesh_by_description
                             mesh_name = mesh_manager.get_mesh_by_description(args["mesh_name"])
-                            print(f"Resolved mesh name '{args['mesh_name']}' to '{mesh_name}'")
-                            
                             if mesh_name:
-                                print("Found the mesh!")
                                 result = {
                                     "status": "success",
                                     "mesh_name": mesh_name,
-                                    "color": args.get("color", "#FF0000")  # Include color if it exists
+                                    "color": args.get("color", "#FF0000")
                                 }
                             else:
                                 result = {
                                     "status": "error",
                                     "message": f"Could not find mesh with description: {args['mesh_name']}"
                                 }
-                        
-                            
                         # Add the result to tool outputs
                         tool_outputs.append({
                             "tool_call_id": action.id,
@@ -137,12 +122,14 @@ def chat():
                         })
                         
                     except json.JSONDecodeError as e:
+                        # Log JSON parsing errors
                         print(f"Error parsing function arguments: {e}")
                         tool_outputs.append({
                             "tool_call_id": action.id,
                             "output": json.dumps({"status": "error", "message": "Invalid arguments format"})
                         })
                     except Exception as e:
+                        # Log any other errors
                         print(f"Error processing function: {e}")
                         tool_outputs.append({
                             "tool_call_id": action.id,
@@ -224,6 +211,7 @@ def chat():
         return jsonify(response_data)
         
     except Exception as e:
+        # Log any errors in the chat endpoint
         print(f"\nError in chat endpoint: {str(e)}")
         import traceback
         print(f"Traceback: {traceback.format_exc()}")

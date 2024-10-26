@@ -18,28 +18,17 @@ function handleAssistantResponse(data) {
     }
     console.log("received response");
     console.log(data);
-
+    const jsonObject = JSON.parse(data.response);
+    console.log(jsonObject);
     // Parse the response if it's a string
     let message;
     try {
-        if (typeof data.response === 'string') {
-            const parsedResponse = JSON.parse(data.response);
-            if (parsedResponse.response) {
-                message = parsedResponse.response;
-            } else {
-                addMessage('error', 'Error: Unable to find message in parsed response');
-                // return;
-            }
-        } else if (data.response && data.response.message) {
-            message = data.response.message;
-        } else {
-            addMessage('error', 'Error: Unable to find message in response');
-            // return;
-        }
-    } catch (error) {
-        addMessage('error', `Error parsing response: ${error.message}`);
-        return;
-    }
+       message = jsonObject.response;
+    } catch {
+        message = jsonObject.message;
+    } finally {
+        message = data.response;
+    } 
 
     console.log(message);
     console.log(data.thread_id);

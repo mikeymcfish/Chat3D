@@ -7,9 +7,24 @@ let scene, camera, renderer, controls, meshes = {};
 
 // Export for use in chat.js
 export function highlightObject(meshName, color = '#FF0000') {
+    // Ensure the function is correctly defined and exported
     console.log('Attempting to highlight:', meshName);
+    console.log(meshes);
     const mesh = meshes[meshName];
-    if (mesh) {
+    if (!mesh) {
+        console.error(`Mesh "${meshName}" not found in meshes.`);
+        console.log('Available meshes:', Object.keys(meshes));
+        return;
+    }
+    try {
+        // if (!mesh.userData) {
+        //     mesh.userData = {}; // Initialize if undefined
+        // }
+        // if (!mesh.userData.originalMaterial) {
+        //     mesh.userData.originalMaterial = mesh.material.clone();
+        // }
+        
+        
         console.log('Found mesh to highlight:', meshName);
         if (!mesh.userData.originalMaterial) {
             mesh.userData.originalMaterial = mesh.material.clone();
@@ -18,7 +33,8 @@ export function highlightObject(meshName, color = '#FF0000') {
         highlightMaterial.emissive.setHex(parseInt(color.replace('#', '0x')));
         highlightMaterial.emissiveIntensity = 0.5;
         mesh.material = highlightMaterial;
-    } else {
+    } catch (error) {
+        console.log('Error highlighting mesh:', error);
         console.log('Mesh not found:', meshName);
         console.log('Available meshes:', Object.keys(meshes));
     }
@@ -32,21 +48,23 @@ export function resetHighlight(meshName) {
 }
 
 export function zoomToObject(meshName) {
-    console.log('Attempting to zoom to:', meshName);
-    const mesh = meshes[meshName];
-    if (mesh) {
-        console.log('Found mesh to zoom to:', meshName);
-        const box = new THREE.Box3().setFromObject(mesh);
-        const center = new THREE.Vector3();
-        box.getCenter(center);
-        camera.position.set(center.x, center.y, center.z + 5);
-        camera.lookAt(center);
-        controls.target.copy(center);
-        controls.update();
-    } else {
-        console.log('Mesh not found for zooming:', meshName);
-        console.log('Available meshes:', Object.keys(meshes));
-    }
+    // Ensure the function is correctly defined and exported
+    // console.log('Attempting to zoom to:', meshName);
+    // const mesh = meshes[meshName];
+    // console.log(meshes);
+    // if (mesh) {
+    //     console.log('Found mesh to zoom to:', meshName);
+    //     const box = new THREE.Box3().setFromObject(mesh);
+    //     const center = new THREE.Vector3();
+    //     box.getCenter(center);
+    //     camera.position.set(center.x, center.y, center.z + 5);
+    //     camera.lookAt(center);
+    //     controls.target.copy(center);
+    //     controls.update();
+    // } else {
+    //     console.log('Mesh not found for zooming:', meshName);
+    //     console.log('Available meshes:', Object.keys(meshes));
+    // }
 }
 
 function init() {
@@ -97,12 +115,12 @@ function init() {
     directionalLight.position.set(5, 5, 5);
     scene.add(directionalLight);
 
-    // Add helpers
-    const axesHelper = new THREE.AxesHelper(5);
-    scene.add(axesHelper);
+    // // Add helpers
+    // const axesHelper = new THREE.AxesHelper(5);
+    // scene.add(axesHelper);
 
-    const gridHelper = new THREE.GridHelper(10, 10);
-    scene.add(gridHelper);
+    // const gridHelper = new THREE.GridHelper(10, 10);
+    // scene.add(gridHelper);
 
     // Load GLB model
     const loader = new GLTFLoader();
