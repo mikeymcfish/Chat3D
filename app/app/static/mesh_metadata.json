@@ -12,7 +12,7 @@
     }
   },
   "Item_002": {
-    "mesh_name": "Item",
+    "mesh_name": "drawer1",
     "display_name": "Storage Box",
     "description": "A sturdy container for storing various items",
     "category": "container",
