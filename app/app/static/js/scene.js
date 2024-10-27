@@ -3,9 +3,9 @@ import { OrbitControls } from 'three/addons/controls/OrbitControls.js';
 import { GLTFLoader } from 'three/addons/loaders/GLTFLoader.js';
 import { EffectComposer } from 'three/addons/postprocessing/EffectComposer.js';
 import { RenderPass } from 'three/addons/postprocessing/RenderPass.js';
-import { SSAOPass } from 'three/addons/postprocessing/SSAOPass.js';
 import { SAOPass } from 'three/addons/postprocessing/SAOPass.js';
 import { OutputPass } from 'three/addons/postprocessing/OutputPass.js';
+import { UnrealBloomPass } from 'three/addons/postprocessing/UnrealBloomPass.js';
 
 import { ShaderPass } from 'three/addons/postprocessing/ShaderPass.js';
 import { FXAAShader } from 'three/addons/shaders/FXAAShader.js';
@@ -20,7 +20,7 @@ let composer, ssaoPass, saoPass, renderPass, fxaaPass;
 /// TO LOOK AT: Decals, LOD, toon material, FXAA, GTAO, SSAA, Outline pass, SAO, bloom pass
 
 // Previous export functions remain unchanged
-export function highlightObject(meshName, color = '#FF0000') {
+export function highlightObject(meshName, color = '#00FFFF') {
     console.log('Attempting to highlight:', meshName);
     const mesh = meshes[meshName];
     if (!mesh) {
@@ -33,7 +33,8 @@ export function highlightObject(meshName, color = '#FF0000') {
         }
         const highlightMaterial = mesh.userData.originalMaterial.clone();
         highlightMaterial.emissive.setHex(parseInt(color.replace('#', '0x')));
-        highlightMaterial.emissiveIntensity = 0.5;
+        highlightMaterial.emissiveIntensity = 1.5; // Increase emissive intensity for bloom
+        highlightMaterial.color.setHex(0x000000); // Set base color to black to enhance bloom
         mesh.material = highlightMaterial;
     } catch (error) {
         console.error('Error highlighting mesh:', error);
@@ -49,22 +50,22 @@ export function resetHighlight(meshName) {
 
 export function zoomToObject(meshName) {
     // Ensure the function is correctly defined and exported
-    // console.log('Attempting to zoom to:', meshName);
-    // const mesh = meshes[meshName];
-    // console.log(meshes);
-    // if (mesh) {
-    //     console.log('Found mesh to zoom to:', meshName);
-    //     const box = new THREE.Box3().setFromObject(mesh);
-    //     const center = new THREE.Vector3();
-    //     box.getCenter(center);
-    //     camera.position.set(center.x, center.y, center.z + 5);
-    //     camera.lookAt(center);
-    //     controls.target.copy(center);
-    //     controls.update();
-    // } else {
-    //     console.log('Mesh not found for zooming:', meshName);
-    //     console.log('Available meshes:', Object.keys(meshes));
-    // }
+    console.log('Attempting to zoom to:', meshName);
+    const mesh = meshes[meshName];
+    console.log(meshes);
+    if (mesh) {
+        console.log('Found mesh to zoom to:', meshName);
+        const box = new THREE.Box3().setFromObject(mesh);
+        const center = new THREE.Vector3();
+        box.getCenter(center);
+        // camera.position.set(center.x, center.y, center.z + 5);
+        camera.lookAt(center);
+        controls.target.copy(center);
+        controls.update();
+    } else {
+        console.log('Mesh not found for zooming:', meshName);
+        console.log('Available meshes:', Object.keys(meshes));
+    }
 }
 // Previous export functions remain unchanged...
 
@@ -112,17 +113,22 @@ function init() {
 
     composer.addPass(renderPass);
     saoPass = new SAOPass( scene, camera );
-    saoPass.params.saoBias = 0.232;
-    saoPass.params.saoIntensity = 0.075;
+    saoPass.params.saoBias = 0.2;
+    saoPass.params.saoIntensity = 0.045;
     saoPass.params.saoScale = .9;
     saoPass.params.saoKernelRadius = 40.0;
     saoPass.params.saoMinResolution = 0.0;
     saoPass.params.saoBlur = true;
+    saoPass.enabled = true;
     composer.addPass( saoPass );
+    const bloomPass = new UnrealBloomPass(new THREE.Vector2(window.innerWidth, window.innerHeight), 0.45, 0.1, 0.85);
+    composer.addPass(bloomPass);
+
     const outputPass = new OutputPass();
-    composer.addPass( outputPass );
-    fxaaPass = new ShaderPass( FXAAShader );
-    composer.addPass( fxaaPass );
+    composer.addPass(outputPass);
+
+    fxaaPass = new ShaderPass(FXAAShader);
+    composer.addPass(fxaaPass);
     // // Init gui
     // const gui = new GUI();
     // gui.add( saoPass.params, 'output', {
@@ -182,15 +188,19 @@ function init() {
             gltf.scene.traverse(function(child) {
                 if (child.isMesh) {
                     meshes[child.name] = child;
-                    
+                    console.log("found mesh:", child.name);
+                    // child.material = new THREE.MeshPhongMaterial({ color: 0xaaaaaa });
+
                     if (child.material) {
                         child.material.needsUpdate = true;
                         child.material.metalness = 0.2;
                         child.material.roughness = 0.8;
+                        // child.material.transparent = false; // Disable transparency
+                        // child.material.opacity = 1.0; // Ensure full opacity
                         // child.material.color = 0x00ffff;
                     } else {
                         console.log('No material found for mesh:', child.name);
-                        child.material = new THREE.MeshStandardMaterial({ color: 0x00ff00 });
+                        child.material = new THREE.MeshLambertMaterial({ color: 0x00ff00 });
                     }
                     child.castShadow = true;
                     child.receiveShadow = true;
@@ -210,6 +220,7 @@ function init() {
                 center.y + maxDim,
                 center.z + maxDim
             );
+           
             camera.lookAt(center);
             controls.target.copy(center);
             controls.update();
@@ -224,13 +235,14 @@ function init() {
     );
 
     animate();
+    
 }
 
 function animate() {
     requestAnimationFrame(animate);
     controls.update();
     composer.render();
-    // renderer.render(scene, camera);
+    // highlightObject('laserCutter','#00ffff');
 }
 
 window.addEventListener('resize', () => {
@@ -238,36 +250,36 @@ window.addEventListener('resize', () => {
         const height = window.innerHeight;
         renderer.setSize(width, height);
         composer.setSize(width, height);
-        ssaoPass.setSize(width, height);
+        saoPass.setSize(width, height);
         const pixelRatio = renderer.getPixelRatio();
         fxaaPass.material.uniforms[ 'resolution' ].value.x = 1 / ( container.offsetWidth * pixelRatio );
 		fxaaPass.material.uniforms[ 'resolution' ].value.y = 1 / ( container.offsetHeight * pixelRatio );
     });
 
-// Keyboard controls
-window.addEventListener('keydown', function(event) {
-    switch(event.key) {
-        case 'd':
-            ssaoPass.output = (ssaoPass.output + 1) % 4;
-            console.log('SSAO Output Mode:', ssaoPass.output);
-            break;
-        case 'ArrowUp':
-            ssaoPass.intensity = Math.min((ssaoPass.intensity + 0.1), 10);
-            console.log('SSAO Intensity:', ssaoPass.intensity);
-            break;
-        case 'ArrowDown':
-            ssaoPass.intensity = Math.max((ssaoPass.intensity - 0.1), 0);
-            console.log('SSAO Intensity:', ssaoPass.intensity);
-            break;
-        case 'ArrowLeft':
-            ssaoPass.kernelRadius = Math.max((ssaoPass.kernelRadius - 0.01), 0.01);
-            console.log('Kernel Radius:', ssaoPass.kernelRadius);
-            break;
-        case 'ArrowRight':
-            ssaoPass.kernelRadius = Math.min((ssaoPass.kernelRadius + 0.01), 8);
-            console.log('Kernel Radius:', ssaoPass.kernelRadius);
-            break;
-    }
-});
+// // Keyboard controls
+// window.addEventListener('keydown', function(event) {
+//     switch(event.key) {
+//         case 'd':
+//             ssaoPass.output = (ssaoPass.output + 1) % 4;
+//             console.log('SSAO Output Mode:', ssaoPass.output);
+//             break;
+//         case 'ArrowUp':
+//             ssaoPass.intensity = Math.min((ssaoPass.intensity + 0.1), 10);
+//             console.log('SSAO Intensity:', ssaoPass.intensity);
+//             break;
+//         case 'ArrowDown':
+//             ssaoPass.intensity = Math.max((ssaoPass.intensity - 0.1), 0);
+//             console.log('SSAO Intensity:', ssaoPass.intensity);
+//             break;
+//         case 'ArrowLeft':
+//             ssaoPass.kernelRadius = Math.max((ssaoPass.kernelRadius - 0.01), 0.01);
+//             console.log('Kernel Radius:', ssaoPass.kernelRadius);
+//             break;
+//         case 'ArrowRight':
+//             ssaoPass.kernelRadius = Math.min((ssaoPass.kernelRadius + 0.01), 8);
+//             console.log('Kernel Radius:', ssaoPass.kernelRadius);
+//             break;
+//     }
+// });
 
 init();

@@ -90,10 +90,14 @@ class MeshDataManager:
         """Search for meshes based on description or display name"""
         results = []
         for mesh_id, data in self.mesh_data.items():
+            print(f"Searching for {query} in {data['display_name']}")
             if (query.lower() in data['description'].lower() or 
                 query.lower() in data['display_name'].lower()):
                 results.append(data)
         return results
+    
+    def search_meshes(self, query):
+        return self.search_mesh_by_description(query)
 
     def print_debug_info(self):
         """Print debug information about paths and file existence"""

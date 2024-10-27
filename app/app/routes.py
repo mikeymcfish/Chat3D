@@ -103,7 +103,7 @@ def chat():
                         elif action.function.name == "get_mesh_by_description":
                             result = mesh_manager.get_mesh_by_description(args["query"])
                         elif action.function.name in ["highlight_object", "zoom_to_object"]:
-                            mesh_name = mesh_manager.get_mesh_by_description(args["mesh_name"])
+                            # mesh_name = mesh_manager.get_mesh_by_description(args["mesh_name"])
                             if mesh_name:
                                 result = {
                                     "status": "success",

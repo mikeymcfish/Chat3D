@@ -1,38 +1,192 @@
 {
   "Item_001": {
-    "mesh_name": "Formlabs",
-    "display_name": "Formlabs Resin Printer",
-    "description": "High-resolution desktop 3D printer for precision resin-based models",
-    "category": "3D printer",
+    "mesh_name": "Cabinet_top_1",
+    "display_name": "Screwdriver Set",
+    "description": "Precision screwdrivers for detailed electronics work",
+    "category": "tool",
     "properties": {
-      "material": "resin",
-      "layer_thickness": "25-100 microns",
-      "build_volume": "145x145x185 mm",
-      "model_number": "Form 3"
+      "material": "steel",
+      "quantity": "8-piece set",
+      "tip_types": ["flat", "phillips"],
+      "part_number": "SD-SET-8"
     }
   },
   "Item_002": {
-    "mesh_name": "drawer1",
-    "display_name": "Storage Box",
-    "description": "A sturdy container for storing various items",
-    "category": "container",
+    "mesh_name": "laserCutter",
+    "display_name": "Laser cutter",
+    "description": "Various grit sandpapers and files for finishing surfaces",
+    "category": "tool",
     "properties": {
-      "material": "plastic",
-      "dimensions": "300x200x150 mm",
-      "color": "gray",
-      "part_number": "BOX-100"
+      "material": "abrasive paper",
+      "grit_range": "120-2000",
+      "quantity": "50 sheets",
+      "part_number": "Epilog"
     }
   },
   "Item_003": {
-    "mesh_name": "laserCutter",
-    "display_name": "Laser Cutter",
-    "description": "Precision laser cutter for engraving and cutting materials",
-    "category": "cutting tool",
+    "mesh_name": "enclosure_3",
+    "display_name": "Form3+",
+    "description": "3D printer, resin",
+    "category": "tool",
     "properties": {
-      "material_compatibility": "wood, acrylic, fabric, paper",
-      "cutting_area": "600x400 mm",
-      "laser_power": "40W",
-      "model_number": "LC-5000"
+      "material": "plastic and metal",
+      "temperature_range": "100-600 °C",
+      "power": "1800W",
+      "model_number": "HG-X1800"
+    }
+  },
+  "Item_004": {
+    "mesh_name": "enclosure_2",
+    "display_name": "Form4",
+    "description": "advanced resin 3d printer",
+    "category": "tool",
+    "properties": {
+      "material": "plastic",
+      "stick_diameter": "11 mm",
+      "power": "20W",
+      "model_number": "GG-20W"
+    }
+  },
+  "Item_005": {
+    "mesh_name": "Cabinet_left_4",
+    "display_name": "Multimeter",
+    "description": "Digital multimeter for voltage, current, and resistance measurement",
+    "category": "tool",
+    "properties": {
+      "material": "plastic",
+      "measurement_range": "up to 600V",
+      "accuracy": "±0.5%",
+      "model_number": "MM-600"
+    }
+  },
+  "Item_006": {
+    "mesh_name": "Cabinet_left_4",
+    "display_name": "Oscilloscope",
+    "description": "Digital oscilloscope for analyzing electrical signals",
+    "category": "tool",
+    "properties": {
+      "material": "plastic and metal",
+      "bandwidth": "100 MHz",
+      "channels": "2",
+      "model_number": "OSC-100M"
+    }
+  },
+  "Item_007": {
+    "mesh_name": "Cabinet_left_3",
+    "display_name": "Caliper",
+    "description": "Digital caliper for precise measurements",
+    "category": "tool",
+    "properties": {
+      "material": "stainless steel",
+      "measurement_range": "0-150 mm",
+      "accuracy": "±0.02 mm",
+      "model_number": "CAL-150"
+    }
+  },
+  "Item_008": {
+    "mesh_name": "Cabinet_left_3",
+    "display_name": "Micrometer",
+    "description": "Precision micrometer for detailed measurements",
+    "category": "tool",
+    "properties": {
+      "material": "stainless steel",
+      "measurement_range": "0-25 mm",
+      "accuracy": "±0.001 mm",
+      "model_number": "MIC-25"
+    }
+  },
+  "Item_009": {
+    "mesh_name": "Cabinet_left_drawer_1",
+    "display_name": "Safety Glasses",
+    "description": "Protective eyewear for working with tools",
+    "category": "safety gear",
+    "properties": {
+      "material": "polycarbonate",
+      "lens_color": "clear",
+      "certification": "ANSI Z87.1",
+      "part_number": "SG-CL"
+    }
+  },
+  "Item_010": {
+    "mesh_name": "Cabinet_left_drawer_1",
+    "display_name": "Ear Plugs",
+    "description": "Noise-reducing ear plugs for loud equipment",
+    "category": "safety gear",
+    "properties": {
+      "material": "foam",
+      "NRR": "33 dB",
+      "quantity": "50 pairs",
+      "part_number": "EP-33DB"
+    }
+  },
+  "Item_011": {
+    "mesh_name": "Cabinet_left_drawer_2",
+    "display_name": "Utility Knife",
+    "description": "Heavy-duty knife for cutting materials",
+    "category": "tool",
+    "properties": {
+      "material": "metal and plastic",
+      "blade_type": "replaceable",
+      "blade_length": "18 mm",
+      "model_number": "UK-18"
+    }
+  },
+  "Item_012": {
+    "mesh_name": "Cabinet_left_drawer_2",
+    "display_name": "Scissors",
+    "description": "Industrial-grade scissors for heavy-duty cutting",
+    "category": "tool",
+    "properties": {
+      "material": "stainless steel",
+      "blade_length": "200 mm",
+      "part_number": "SC-200"
+    }
+  },
+  "Item_013": {
+    "mesh_name": "Cabinet_left_drawer_3",
+    "display_name": "Paint Brush Set",
+    "description": "Various brush sizes for painting and staining",
+    "category": "tool",
+    "properties": {
+      "material": "synthetic bristle",
+      "brush_sizes": ["1/2 inch", "1 inch", "2 inch"],
+      "quantity": "3 brushes",
+      "part_number": "PB-SET3"
+    }
+  },
+  "Item_014": {
+    "mesh_name": "Cabinet_left_drawer_3",
+    "display_name": "Painter's Tape",
+    "description": "Tape for masking surfaces during painting",
+    "category": "tool",
+    "properties": {
+      "material": "paper",
+      "width": "2 inches",
+      "length": "60 yards",
+      "part_number": "PT-2X60"
+    }
+  },
+  "Item_015": {
+    "mesh_name": "Cabinet_left_drawer_4",
+    "display_name": "Soldering Iron",
+    "description": "Electric soldering iron for electronics work",
+    "category": "tool",
+    "properties": {
+      "material": "plastic and metal",
+      "temperature_range": "200-450 °C",
+      "power": "60W",
+      "model_number": "SI-60W"
+    }
+  },
+  "Item_016": {
+    "mesh_name": "Cabinet_left_drawer_4",
+    "display_name": "Wire Strippers",
+    "description": "Adjustable wire strippers for electrical work",
+    "category": "tool",
+    "properties": {
+      "material": "steel",
+      "gauge_range": "10-20 AWG",
+      "part_number": "WS-1020"
     }
   }
 }
