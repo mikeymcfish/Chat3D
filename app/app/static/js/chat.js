@@ -11,27 +11,48 @@ function addMessage(role, content) {
     messageDiv.scrollIntoView({ behavior: 'smooth' });
 }
 
+function extractMessage(data) {
+    console.log("Received response:", data);
+    
+    let message = data.response;
+    
+    // Helper function to safely parse JSON and extract message
+    const tryParseAndExtract = (content) => {
+        try {
+            if (typeof content === 'string') {
+                const parsed = JSON.parse(content);
+                // Check common message field names
+                return parsed.response_text || 
+                       parsed.response || 
+                       parsed.message || 
+                       parsed.paragraph ||
+                       parsed.content ||
+                       (typeof parsed === 'string' ? parsed : null);
+            }
+            return content;
+        } catch (e) {
+            return content;
+        }
+    };
+
+    // Try parsing up to 3 levels deep
+    for (let i = 0; i < 3; i++) {
+        const extracted = tryParseAndExtract(message);
+        if (extracted === message) break; // Stop if no more parsing needed
+        message = extracted;
+    }
+
+    console.log("Final extracted message:", message);
+    return message;
+}
+
 function handleAssistantResponse(data) {
     if (data.error) {
         addMessage('error', `Error: ${data.error}`);
         return;
     }
-    console.log("received response");
-    console.log(data);
-    const jsonObject = JSON.parse(data.response);
-    console.log(jsonObject);
-    // Parse the response if it's a string
-    let message;
-    try {
-       message = jsonObject.response;
-    } catch {
-        message = jsonObject.message;
-    } finally {
-        message = data.response;
-    } 
 
-    console.log(message);
-    console.log(data.thread_id);
+    const message = extractMessage(data);
     currentThreadId = data.thread_id;
     addMessage('assistant', message);
     

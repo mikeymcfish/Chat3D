@@ -184,11 +184,14 @@ function init() {
             
             gltf.scene.scale.set(3,3,3);
             scene.add(gltf.scene);
-            
+            let meshNames = [];  // Array to collect mesh names
+
             gltf.scene.traverse(function(child) {
                 if (child.isMesh) {
                     meshes[child.name] = child;
                     console.log("found mesh:", child.name);
+                    meshNames.push(child.name);  // Add name to array
+
                     // child.material = new THREE.MeshPhongMaterial({ color: 0xaaaaaa });
 
                     if (child.material) {
@@ -206,6 +209,8 @@ function init() {
                     child.receiveShadow = true;
                 }
             });
+
+            console.log("All mesh names:", meshNames.join(", "));  // Print comma-separated list
 
             const box = new THREE.Box3().setFromObject(gltf.scene);
             const center = new THREE.Vector3();

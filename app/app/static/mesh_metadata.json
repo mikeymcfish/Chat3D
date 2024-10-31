@@ -1,192 +1,316 @@
 {
   "Item_001": {
-    "mesh_name": "Cabinet_top_1",
-    "display_name": "Screwdriver Set",
-    "description": "Precision screwdrivers for detailed electronics work",
-    "category": "tool",
-    "properties": {
-      "material": "steel",
-      "quantity": "8-piece set",
-      "tip_types": ["flat", "phillips"],
-      "part_number": "SD-SET-8"
-    }
+    "mesh_name": "huskey_1_top",
+    "display_name": "Prusa i3",
+    "description": "",
+    "category": "miscellaneous",
+    "properties": {}
   },
   "Item_002": {
-    "mesh_name": "laserCutter",
-    "display_name": "Laser cutter",
-    "description": "Various grit sandpapers and files for finishing surfaces",
-    "category": "tool",
-    "properties": {
-      "material": "abrasive paper",
-      "grit_range": "120-2000",
-      "quantity": "50 sheets",
-      "part_number": "Epilog"
-    }
+    "mesh_name": "huskey_1_top",
+    "display_name": "iMac",
+    "description": "used for Vinyl cutting software, sure-cuts",
+    "category": "electronics",
+    "properties": {}
   },
   "Item_003": {
-    "mesh_name": "enclosure_3",
-    "display_name": "Form3+",
-    "description": "3D printer, resin",
+    "mesh_name": "husky_1_1",
+    "display_name": "Multimeters",
+    "description": "",
     "category": "tool",
-    "properties": {
-      "material": "plastic and metal",
-      "temperature_range": "100-600 °C",
-      "power": "1800W",
-      "model_number": "HG-X1800"
-    }
+    "properties": {}
   },
   "Item_004": {
-    "mesh_name": "enclosure_2",
-    "display_name": "Form4",
-    "description": "advanced resin 3d printer",
+    "mesh_name": "husky_1_L1",
+    "display_name": "De-soldering gun",
+    "description": "",
     "category": "tool",
-    "properties": {
-      "material": "plastic",
-      "stick_diameter": "11 mm",
-      "power": "20W",
-      "model_number": "GG-20W"
-    }
+    "properties": {}
   },
   "Item_005": {
-    "mesh_name": "Cabinet_left_4",
-    "display_name": "Multimeter",
-    "description": "Digital multimeter for voltage, current, and resistance measurement",
+    "mesh_name": "husky_1_1R",
+    "display_name": "Calipers",
+    "description": "",
     "category": "tool",
-    "properties": {
-      "material": "plastic",
-      "measurement_range": "up to 600V",
-      "accuracy": "±0.5%",
-      "model_number": "MM-600"
-    }
+    "properties": {}
   },
   "Item_006": {
-    "mesh_name": "Cabinet_left_4",
-    "display_name": "Oscilloscope",
-    "description": "Digital oscilloscope for analyzing electrical signals",
+    "mesh_name": "husky_1_1R",
+    "display_name": "Wire strippers",
+    "description": "",
     "category": "tool",
-    "properties": {
-      "material": "plastic and metal",
-      "bandwidth": "100 MHz",
-      "channels": "2",
-      "model_number": "OSC-100M"
-    }
+    "properties": {}
   },
   "Item_007": {
-    "mesh_name": "Cabinet_left_3",
-    "display_name": "Caliper",
-    "description": "Digital caliper for precise measurements",
+    "mesh_name": "huskey_1_3R",
+    "display_name": "Wires",
+    "description": "",
     "category": "tool",
-    "properties": {
-      "material": "stainless steel",
-      "measurement_range": "0-150 mm",
-      "accuracy": "±0.02 mm",
-      "model_number": "CAL-150"
-    }
+    "properties": {}
   },
   "Item_008": {
-    "mesh_name": "Cabinet_left_3",
-    "display_name": "Micrometer",
-    "description": "Precision micrometer for detailed measurements",
-    "category": "tool",
-    "properties": {
-      "material": "stainless steel",
-      "measurement_range": "0-25 mm",
-      "accuracy": "±0.001 mm",
-      "model_number": "MIC-25"
-    }
+    "mesh_name": "huskey_1_3R",
+    "display_name": "Heat-shrink tubing",
+    "description": "",
+    "category": "supplies",
+    "properties": {}
   },
   "Item_009": {
-    "mesh_name": "Cabinet_left_drawer_1",
-    "display_name": "Safety Glasses",
-    "description": "Protective eyewear for working with tools",
-    "category": "safety gear",
-    "properties": {
-      "material": "polycarbonate",
-      "lens_color": "clear",
-      "certification": "ANSI Z87.1",
-      "part_number": "SG-CL"
-    }
+    "mesh_name": "huskey_1_3R",
+    "display_name": "Solder sleeves",
+    "description": "",
+    "category": "tool",
+    "properties": {}
   },
   "Item_010": {
-    "mesh_name": "Cabinet_left_drawer_1",
-    "display_name": "Ear Plugs",
-    "description": "Noise-reducing ear plugs for loud equipment",
-    "category": "safety gear",
-    "properties": {
-      "material": "foam",
-      "NRR": "33 dB",
-      "quantity": "50 pairs",
-      "part_number": "EP-33DB"
-    }
+    "mesh_name": "huskey_1_4R",
+    "display_name": "Label maker",
+    "description": "P-Touch PT-D600 Label Maker",
+    "category": "electronics",
+    "properties": {}
   },
   "Item_011": {
-    "mesh_name": "Cabinet_left_drawer_2",
-    "display_name": "Utility Knife",
-    "description": "Heavy-duty knife for cutting materials",
+    "mesh_name": "huskey_2_1",
+    "display_name": "Blades",
+    "description": "Includes knives, exacto blades, box cutters",
     "category": "tool",
-    "properties": {
-      "material": "metal and plastic",
-      "blade_type": "replaceable",
-      "blade_length": "18 mm",
-      "model_number": "UK-18"
-    }
+    "properties": {}
   },
   "Item_012": {
-    "mesh_name": "Cabinet_left_drawer_2",
-    "display_name": "Scissors",
-    "description": "Industrial-grade scissors for heavy-duty cutting",
+    "mesh_name": "huskey_2_1",
+    "display_name": "Measuring tape",
+    "description": "",
     "category": "tool",
-    "properties": {
-      "material": "stainless steel",
-      "blade_length": "200 mm",
-      "part_number": "SC-200"
-    }
+    "properties": {}
   },
   "Item_013": {
-    "mesh_name": "Cabinet_left_drawer_3",
-    "display_name": "Paint Brush Set",
-    "description": "Various brush sizes for painting and staining",
+    "mesh_name": "huskey_2_2R",
+    "display_name": "Saw blades",
+    "description": "",
     "category": "tool",
-    "properties": {
-      "material": "synthetic bristle",
-      "brush_sizes": ["1/2 inch", "1 inch", "2 inch"],
-      "quantity": "3 brushes",
-      "part_number": "PB-SET3"
-    }
+    "properties": {}
   },
   "Item_014": {
-    "mesh_name": "Cabinet_left_drawer_3",
-    "display_name": "Painter's Tape",
-    "description": "Tape for masking surfaces during painting",
+    "mesh_name": "huskey_2_2L",
+    "display_name": "Cutting mats",
+    "description": "",
     "category": "tool",
-    "properties": {
-      "material": "paper",
-      "width": "2 inches",
-      "length": "60 yards",
-      "part_number": "PT-2X60"
-    }
+    "properties": {}
   },
   "Item_015": {
-    "mesh_name": "Cabinet_left_drawer_4",
-    "display_name": "Soldering Iron",
-    "description": "Electric soldering iron for electronics work",
+    "mesh_name": "huskey_2_3L",
+    "display_name": "Heat guns",
+    "description": "",
     "category": "tool",
-    "properties": {
-      "material": "plastic and metal",
-      "temperature_range": "200-450 °C",
-      "power": "60W",
-      "model_number": "SI-60W"
-    }
+    "properties": {}
   },
   "Item_016": {
-    "mesh_name": "Cabinet_left_drawer_4",
-    "display_name": "Wire Strippers",
-    "description": "Adjustable wire strippers for electrical work",
+    "mesh_name": "huskey_2_3R",
+    "display_name": "Foam cutter",
+    "description": "Circle cutter and line cutter",
+    "category": "tool",
+    "properties": {}
+  },
+  "Item_017": {
+    "mesh_name": "metal_top",
+    "display_name": "First aid kit",
+    "description": "",
+    "category": "safety",
+    "properties": {}
+  },
+  "Item_018": {
+    "mesh_name": "metal_1",
+    "display_name": "PLA filament",
+    "description": "",
+    "category": "supplies",
+    "properties": {}
+  },
+  "Item_019": {
+    "mesh_name": "Table",
+    "display_name": "iPad Pros",
+    "description": "With pencils",
+    "category": "electronics",
+    "properties": {}
+  },
+  "Item_020": {
+    "mesh_name": "rolling_middle",
+    "display_name": "iFixit",
+    "description": "",
+    "category": "miscellaneous",
+    "properties": {
+      "extra_info": "Ask to use"
+    }
+  },
+  "Item_021": {
+    "mesh_name": "rolling_top",
+    "display_name": "Tweezers",
+    "description": "",
     "category": "tool",
     "properties": {
-      "material": "steel",
-      "gauge_range": "10-20 AWG",
-      "part_number": "WS-1020"
+      "extra_info": "Ask to use"
     }
+  },
+  "Item_022": {
+    "mesh_name": "Table",
+    "display_name": "Batteries",
+    "description": "AA, AAA, CR2032, 9V",
+    "category": "miscellaneous",
+    "properties": {}
+  },
+  "Item_023": {
+    "mesh_name": "desk",
+    "display_name": "PC",
+    "description": "graphics PC, RTX 4090 graphics, 64Gb RAM",
+    "category": "electronics",
+    "properties": {}
+  },
+  "Item_024": {
+    "mesh_name": "desk",
+    "display_name": "Curved monitor",
+    "description": "Samsung",
+    "category": "electronics",
+    "properties": {}
+  },
+  "Item_025": {
+    "mesh_name": "desk",
+    "display_name": "Einscan 3D scanner",
+    "description": "Shining 3D EinScan",
+    "category": "electronics",
+    "properties": {}
+  },
+  "Item_026": {
+    "mesh_name": "desk",
+    "display_name": "Flatbed scanner",
+    "description": "Canon 9000F Mark II Scanner",
+    "category": "electronics",
+    "properties": {}
+  },
+  "Item_027": {
+    "mesh_name": "rolling_top",
+    "display_name": "Laser safety glasses",
+    "description": "one For Blue and for green",
+    "category": "safety",
+    "properties": {}
+  },
+  "Item_028": {
+    "mesh_name": "enclosure_1",
+    "display_name": "Spray painting booth",
+    "description": "",
+    "category": "equipment",
+    "properties": {
+      "extra_info": "Remember to turn on using the dial above the booth"
+    }
+  },
+  "Item_029": {
+    "mesh_name": "enclosure_2",
+    "display_name": "Form4",
+    "description": "",
+    "category": "miscellaneous",
+    "properties": {}
+  },
+  "Item_030": {
+    "mesh_name": "enclosure_2",
+    "display_name": "Form wash",
+    "description": "",
+    "category": "miscellaneous",
+    "properties": {}
+  },
+  "Item_031": {
+    "mesh_name": "enclosure_3",
+    "display_name": "Form cure",
+    "description": "",
+    "category": "miscellaneous",
+    "properties": {}
+  },
+  "Item_032": {
+    "mesh_name": "enclosure_3",
+    "display_name": "Form 3+",
+    "description": "",
+    "category": "miscellaneous",
+    "properties": {}
+  },
+  "Item_033": {
+    "mesh_name": "Cabinet_right_3",
+    "display_name": "Resin trays",
+    "description": "",
+    "category": "supplies",
+    "properties": {}
+  },
+  "Item_034": {
+    "mesh_name": "Cabinet_left_4",
+    "display_name": "Spare resin trays",
+    "description": "",
+    "category": "supplies",
+    "properties": {}
+  },
+  "Item_035": {
+    "mesh_name": "Cabinet_left_3",
+    "display_name": "Resin",
+    "description": "",
+    "category": "supplies",
+    "properties": {}
+  },
+  "Item_036": {
+    "mesh_name": "Cabinet_left_4",
+    "display_name": "Paper towels",
+    "description": "",
+    "category": "supplies",
+    "properties": {}
+  },
+  "Item_037": {
+    "mesh_name": "Cabinet_right_4",
+    "display_name": "Soap",
+    "description": "",
+    "category": "supplies",
+    "properties": {}
+  },
+  "Item_038": {
+    "mesh_name": "flammable",
+    "display_name": "Spray cans",
+    "description": "",
+    "category": "supplies",
+    "properties": {}
+  },
+  "Item_039": {
+    "mesh_name": "flammable",
+    "display_name": "Isopropyl alcohol",
+    "description": "",
+    "category": "supplies",
+    "properties": {}
+  },
+  "Item_040": {
+    "mesh_name": "flammable_top",
+    "display_name": "Sharps container",
+    "description": "",
+    "category": "safety",
+    "properties": {}
+  },
+  "Item_041": {
+    "mesh_name": "large_top",
+    "display_name": "Wood",
+    "description": "24x12, 12x12, all 1/8\"",
+    "category": "miscellaneous",
+    "properties": {}
+  },
+  "Item_042": {
+    "mesh_name": "large_top",
+    "display_name": "Acrylic",
+    "description": "12x12, various colors",
+    "category": "miscellaneous",
+    "properties": {}
+  },
+  "Item_043": {
+    "mesh_name": "large_top",
+    "display_name": "Chipboard",
+    "description": "",
+    "category": "miscellaneous",
+    "properties": {}
+  },
+  "Item_044": {
+    "mesh_name": "large_top",
+    "display_name": "Wooden dowels and rods",
+    "description": "",
+    "category": "miscellaneous",
+    "properties": {}
   }
 }

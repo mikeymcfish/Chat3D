@@ -103,18 +103,12 @@ def chat():
                         elif action.function.name == "get_mesh_by_description":
                             result = mesh_manager.get_mesh_by_description(args["query"])
                         elif action.function.name in ["highlight_object", "zoom_to_object"]:
-                            # mesh_name = mesh_manager.get_mesh_by_description(args["mesh_name"])
-                            if mesh_name:
-                                result = {
-                                    "status": "success",
-                                    "mesh_name": mesh_name,
-                                    "color": args.get("color", "#FF0000")
-                                }
-                            else:
-                                result = {
-                                    "status": "error",
-                                    "message": f"Could not find mesh with description: {args['mesh_name']}"
-                                }
+                            mesh_name = args["mesh_name"]
+                            result = {
+                                "status": "success",
+                                "mesh_name": mesh_name,
+                                "color": args.get("color", "#FF0000")
+                            }
                         # Add the result to tool outputs
                         tool_outputs.append({
                             "tool_call_id": action.id,
