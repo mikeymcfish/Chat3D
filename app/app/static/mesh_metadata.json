@@ -3,7 +3,7 @@
     "mesh_name": "huskey_1_top",
     "display_name": "Prusa i3",
     "description": "",
-    "category": "miscellaneous",
+    "category": "equipment",
     "properties": {}
   },
   "Item_002": {
@@ -25,7 +25,9 @@
     "display_name": "De-soldering gun",
     "description": "",
     "category": "tool",
-    "properties": {}
+    "properties": {
+      "extra_info": "Hako Fr-300"
+    }
   },
   "Item_005": {
     "mesh_name": "husky_1_1R",
@@ -45,7 +47,7 @@
     "mesh_name": "huskey_1_3R",
     "display_name": "Wires",
     "description": "",
-    "category": "tool",
+    "category": "supplies",
     "properties": {}
   },
   "Item_008": {
@@ -59,7 +61,7 @@
     "mesh_name": "huskey_1_3R",
     "display_name": "Solder sleeves",
     "description": "",
-    "category": "tool",
+    "category": "supplies",
     "properties": {}
   },
   "Item_010": {
@@ -94,7 +96,7 @@
     "mesh_name": "huskey_2_2L",
     "display_name": "Cutting mats",
     "description": "",
-    "category": "tool",
+    "category": "supplies",
     "properties": {}
   },
   "Item_015": {
@@ -136,7 +138,7 @@
     "mesh_name": "rolling_middle",
     "display_name": "iFixit",
     "description": "",
-    "category": "miscellaneous",
+    "category": "tool",
     "properties": {
       "extra_info": "Ask to use"
     }
@@ -154,7 +156,7 @@
     "mesh_name": "Table",
     "display_name": "Batteries",
     "description": "AA, AAA, CR2032, 9V",
-    "category": "miscellaneous",
+    "category": "supplies",
     "properties": {}
   },
   "Item_023": {
@@ -205,53 +207,53 @@
     "mesh_name": "enclosure_2",
     "display_name": "Form4",
     "description": "",
-    "category": "miscellaneous",
+    "category": "equipment",
     "properties": {}
   },
   "Item_030": {
     "mesh_name": "enclosure_2",
     "display_name": "Form wash",
     "description": "",
-    "category": "miscellaneous",
+    "category": "equipment",
     "properties": {}
   },
   "Item_031": {
     "mesh_name": "enclosure_3",
     "display_name": "Form cure",
     "description": "",
-    "category": "miscellaneous",
+    "category": "equipment",
     "properties": {}
   },
   "Item_032": {
     "mesh_name": "enclosure_3",
     "display_name": "Form 3+",
     "description": "",
-    "category": "miscellaneous",
+    "category": "equipment",
     "properties": {}
   },
   "Item_033": {
-    "mesh_name": "Cabinet_right_3",
+    "mesh_name": "overhead_3",
     "display_name": "Resin trays",
     "description": "",
     "category": "supplies",
     "properties": {}
   },
   "Item_034": {
-    "mesh_name": "Cabinet_left_4",
+    "mesh_name": "overhead_4",
     "display_name": "Spare resin trays",
     "description": "",
     "category": "supplies",
     "properties": {}
   },
   "Item_035": {
-    "mesh_name": "Cabinet_left_3",
+    "mesh_name": "overhead_2",
     "display_name": "Resin",
     "description": "",
     "category": "supplies",
     "properties": {}
   },
   "Item_036": {
-    "mesh_name": "Cabinet_left_4",
+    "mesh_name": "overhead_5",
     "display_name": "Paper towels",
     "description": "",
     "category": "supplies",
@@ -289,28 +291,424 @@
     "mesh_name": "large_top",
     "display_name": "Wood",
     "description": "24x12, 12x12, all 1/8\"",
-    "category": "miscellaneous",
+    "category": "supplies",
     "properties": {}
   },
   "Item_042": {
     "mesh_name": "large_top",
     "display_name": "Acrylic",
     "description": "12x12, various colors",
-    "category": "miscellaneous",
+    "category": "supplies",
     "properties": {}
   },
   "Item_043": {
     "mesh_name": "large_top",
     "display_name": "Chipboard",
     "description": "",
-    "category": "miscellaneous",
+    "category": "supplies",
     "properties": {}
   },
   "Item_044": {
     "mesh_name": "large_top",
     "display_name": "Wooden dowels and rods",
     "description": "",
-    "category": "miscellaneous",
+    "category": "supplies",
+    "properties": {}
+  },
+  "Item_045": {
+    "mesh_name": "behind_PC_L",
+    "display_name": "Wacom cintique",
+    "description": "",
+    "category": "electronics",
+    "properties": {}
+  },
+  "Item_046": {
+    "mesh_name": "behind_PC_R",
+    "display_name": "Safety goggles",
+    "description": "",
+    "category": "safety",
+    "properties": {}
+  },
+  "Item_047": {
+    "mesh_name": "behind_PC_R",
+    "display_name": "Half-face respirators",
+    "description": "",
+    "category": "safety",
+    "properties": {}
+  },
+  "Item_048": {
+    "mesh_name": "behind_PC_R",
+    "display_name": "Airbrush supplies",
+    "description": "",
+    "category": "supplies",
+    "properties": {}
+  },
+  "Item_049": {
+    "mesh_name": "slots_D4",
+    "display_name": "Hot glue guns",
+    "description": "",
+    "category": "tool",
+    "properties": {}
+  },
+  "Item_050": {
+    "mesh_name": "slots_D3",
+    "display_name": "Drills",
+    "description": "",
+    "category": "tool",
+    "properties": {}
+  },
+  "Item_051": {
+    "mesh_name": "slots_C4",
+    "display_name": "Screwdrivers",
+    "description": "",
+    "category": "tool",
+    "properties": {}
+  },
+  "Item_052": {
+    "mesh_name": "slots_C1",
+    "display_name": "Tape",
+    "description": "",
+    "category": "supplies",
+    "properties": {}
+  },
+  "Item_053": {
+    "mesh_name": "slots_C2",
+    "display_name": "3 foot rulers",
+    "description": "",
+    "category": "tool",
+    "properties": {}
+  },
+  "Item_054": {
+    "mesh_name": "slots_C3",
+    "display_name": "12 inch rulers",
+    "description": "",
+    "category": "tool",
+    "properties": {}
+  },
+  "Item_055": {
+    "mesh_name": "slots_C3",
+    "display_name": "Hammers",
+    "description": "",
+    "category": "tool",
+    "properties": {}
+  },
+  "Item_056": {
+    "mesh_name": "slots_C3",
+    "display_name": "Mallets",
+    "description": "",
+    "category": "tool",
+    "properties": {}
+  },
+  "Item_057": {
+    "mesh_name": "slots_D4",
+    "display_name": "Scissors",
+    "description": "",
+    "category": "tool",
+    "properties": {}
+  },
+  "Item_058": {
+    "mesh_name": "slots_D3",
+    "display_name": "Flashlight",
+    "description": "",
+    "category": "tool",
+    "properties": {}
+  },
+  "Item_059": {
+    "mesh_name": "long_9",
+    "display_name": "DC Power Supply",
+    "description": "",
+    "category": "electronics",
+    "properties": {}
+  },
+  "Item_060": {
+    "mesh_name": "long_8",
+    "display_name": "Oscilloscope",
+    "description": "Siglent SDS 1104X-E",
+    "category": "electronics",
+    "properties": {}
+  },
+  "Item_061": {
+    "mesh_name": "shelf_B2",
+    "display_name": "Soldering irons",
+    "description": "",
+    "category": "tool",
+    "properties": {
+      "extra_info": "Hako FX-888D"
+    }
+  },
+  "Item_062": {
+    "mesh_name": "shelf_B1",
+    "display_name": "Soldering fume extractors",
+    "description": "",
+    "category": "safety",
+    "properties": {}
+  },
+  "Item_063": {
+    "mesh_name": "shelf_A3",
+    "display_name": "Robomaster S1",
+    "description": "",
+    "category": "equipment",
+    "properties": {}
+  },
+  "Item_064": {
+    "mesh_name": "shelf_A2",
+    "display_name": "Tello Talent Drone",
+    "description": "",
+    "category": "equipment",
+    "properties": {}
+  },
+  "Item_065": {
+    "mesh_name": "laserCutter",
+    "display_name": "Epilog Laser Fusion M2",
+    "description": "",
+    "category": "equipment",
+    "properties": {
+      "extra_info": "Remember to turn on exhaust fan!"
+    }
+  },
+  "Item_066": {
+    "mesh_name": "shelf_C3",
+    "display_name": "Ease Release 200",
+    "description": "",
+    "category": "supplies",
+    "properties": {}
+  },
+  "Item_067": {
+    "mesh_name": "shelf_C3",
+    "display_name": "Kisrel Epoxy Resin A and B",
+    "description": "",
+    "category": "supplies",
+    "properties": {}
+  },
+  "Item_068": {
+    "mesh_name": "shelf_C3",
+    "display_name": "Mica Powder 63 Colors",
+    "description": "",
+    "category": "supplies",
+    "properties": {}
+  },
+  "Item_069": {
+    "mesh_name": "shelf_C3",
+    "display_name": "Dura Clear High Gloss Varnish",
+    "description": "",
+    "category": "supplies",
+    "properties": {}
+  },
+  "Item_070": {
+    "mesh_name": "shelf_C3",
+    "display_name": "Smooth-Cast 300 Bright White Liquid Plastic",
+    "description": "",
+    "category": "supplies",
+    "properties": {}
+  },
+  "Item_071": {
+    "mesh_name": "shelf_C3",
+    "display_name": "Smooth-On XTC-3D",
+    "description": "",
+    "category": "supplies",
+    "properties": {}
+  },
+  "Item_072": {
+    "mesh_name": "shelf_C3",
+    "display_name": "UV Flashlight",
+    "description": "",
+    "category": "tool",
+    "properties": {}
+  },
+  "Item_073": {
+    "mesh_name": "shelf_C3",
+    "display_name": "Xtend-It Dry Gas Blanket",
+    "description": "",
+    "category": "supplies",
+    "properties": {}
+  },
+  "Item_074": {
+    "mesh_name": "shelf_C3",
+    "display_name": "Smooth-On EcoFlex 00-35 Fast",
+    "description": "",
+    "category": "supplies",
+    "properties": {}
+  },
+  "Item_075": {
+    "mesh_name": "shelf_C3",
+    "display_name": "Silicone Rubber Color Pigments",
+    "description": "",
+    "category": "supplies",
+    "properties": {}
+  },
+  "Item_076": {
+    "mesh_name": "shelf_C3",
+    "display_name": "Smooth-On Flex Foam-It X",
+    "description": "",
+    "category": "supplies",
+    "properties": {}
+  },
+  "Item_077": {
+    "mesh_name": "shelf_C3",
+    "display_name": "Smooth-On Dragon Skin 20",
+    "description": "",
+    "category": "supplies",
+    "properties": {}
+  },
+  "Item_078": {
+    "mesh_name": "shelf_C3",
+    "display_name": "Smooth-On Slacker",
+    "description": "",
+    "category": "supplies",
+    "properties": {}
+  },
+  "Item_079": {
+    "mesh_name": "shelf_C3",
+    "display_name": "Resin Pigments",
+    "description": "",
+    "category": "supplies",
+    "properties": {}
+  },
+  "Item_080": {
+    "mesh_name": "shelf_C3",
+    "display_name": "Smooth-On Cast Magic Silver Bullet",
+    "description": "",
+    "category": "supplies",
+    "properties": {}
+  },
+  "Item_081": {
+    "mesh_name": "shelf_C3",
+    "display_name": "Smooth-On So-Strong Black Liquid Urethane Colorant",
+    "description": "",
+    "category": "supplies",
+    "properties": {}
+  },
+  "Item_082": {
+    "mesh_name": "shelf_C3",
+    "display_name": "Resin Tape",
+    "description": "",
+    "category": "supplies",
+    "properties": {}
+  },
+  "Item_083": {
+    "mesh_name": "shelf_C3",
+    "display_name": "Let’s Resin Clear UV Resin",
+    "description": "",
+    "category": "supplies",
+    "properties": {}
+  },
+  "Item_084": {
+    "mesh_name": "shelf_C3",
+    "display_name": "So-Strong Urethane Colors",
+    "description": "",
+    "category": "supplies",
+    "properties": {}
+  },
+  "Item_085": {
+    "mesh_name": "shelf_C3",
+    "display_name": "Smooth-On Cast Magic Gold Rush",
+    "description": "",
+    "category": "supplies",
+    "properties": {}
+  },
+  "Item_086": {
+    "mesh_name": "shelf_C3",
+    "display_name": "Smooth-On Copper Powder",
+    "description": "",
+    "category": "supplies",
+    "properties": {}
+  },
+  "Item_087": {
+    "mesh_name": "shelf_C3",
+    "display_name": "Smooth-On Glow Worm Phosphorescent Additive",
+    "description": "",
+    "category": "supplies",
+    "properties": {}
+  },
+  "Item_088": {
+    "mesh_name": "shelf_C3",
+    "display_name": "Quick Concrete",
+    "description": "",
+    "category": "supplies",
+    "properties": {}
+  },
+  "Item_089": {
+    "mesh_name": "shelf_C3",
+    "display_name": "Smooth-On Shadow Gray 99 Granite FX Powder",
+    "description": "",
+    "category": "supplies",
+    "properties": {}
+  },
+  "Item_090": {
+    "mesh_name": "shelf_B3",
+    "display_name": "Clay",
+    "description": "Alien clay, oil based, reusable",
+    "category": "supplies",
+    "properties": {}
+  },
+  "Item_091": {
+    "mesh_name": "Cabinet_right_drawer_1",
+    "display_name": "Springs",
+    "description": "",
+    "category": "supplies",
+    "properties": {}
+  },
+  "Item_092": {
+    "mesh_name": "Cabinet_right_drawer_1",
+    "display_name": "Screws",
+    "description": "",
+    "category": "supplies",
+    "properties": {}
+  },
+  "Item_093": {
+    "mesh_name": "Cabinet_right_drawer_1",
+    "display_name": "Bolts",
+    "description": "",
+    "category": "supplies",
+    "properties": {}
+  },
+  "Item_094": {
+    "mesh_name": "Cabinet_right_drawer_1",
+    "display_name": "Nails",
+    "description": "",
+    "category": "supplies",
+    "properties": {}
+  },
+  "Item_095": {
+    "mesh_name": "Cabinet_right_drawer_1",
+    "display_name": "Mechanical Fasteners",
+    "description": "",
+    "category": "supplies",
+    "properties": {}
+  },
+  "Item_096": {
+    "mesh_name": "Cabinet_right_drawer_2",
+    "display_name": "Plastic bags",
+    "description": "",
+    "category": "supplies",
+    "properties": {}
+  },
+  "Item_097": {
+    "mesh_name": "Cabinet_right_drawer_2",
+    "display_name": "Aluminum foil",
+    "description": "",
+    "category": "supplies",
+    "properties": {}
+  },
+  "Item_098": {
+    "mesh_name": "Cabinet_right_drawer_2",
+    "display_name": "Silica gel packets",
+    "description": "",
+    "category": "supplies",
+    "properties": {}
+  },
+  "Item_099": {
+    "mesh_name": "Cabinet_right_drawer_2",
+    "display_name": "Wire mesh",
+    "description": "",
+    "category": "supplies",
+    "properties": {}
+  },
+  "Item_100": {
+    "mesh_name": "overhead_4",
+    "display_name": "Vacuum degasser",
+    "description": "",
+    "category": "equipment",
     "properties": {}
   }
 }

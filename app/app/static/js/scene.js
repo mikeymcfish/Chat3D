@@ -251,15 +251,29 @@ function animate() {
 }
 
 window.addEventListener('resize', () => {
-        const width = window.innerWidth - 300;
-        const height = window.innerHeight;
-        renderer.setSize(width, height);
-        composer.setSize(width, height);
-        saoPass.setSize(width, height);
-        const pixelRatio = renderer.getPixelRatio();
-        fxaaPass.material.uniforms[ 'resolution' ].value.x = 1 / ( container.offsetWidth * pixelRatio );
-		fxaaPass.material.uniforms[ 'resolution' ].value.y = 1 / ( container.offsetHeight * pixelRatio );
-    });
+    const container = document.getElementById('scene-container');
+    const width = window.innerWidth - 300;
+    const height = window.innerHeight;
+    
+    // Update camera aspect ratio
+    const aspect = width / height;
+    const frustumSize = 10;
+    camera.left = -frustumSize * aspect / 2;
+    camera.right = frustumSize * aspect / 2;
+    camera.top = frustumSize / 2;
+    camera.bottom = -frustumSize / 2;
+    camera.updateProjectionMatrix();
+    
+    // Update renderer and composer
+    renderer.setSize(width, height);
+    composer.setSize(width, height);
+    saoPass.setSize(width, height);
+    
+    // Update FXAA resolution
+    const pixelRatio = renderer.getPixelRatio();
+    fxaaPass.material.uniforms['resolution'].value.x = 1 / (width * pixelRatio);
+    fxaaPass.material.uniforms['resolution'].value.y = 1 / (height * pixelRatio);
+});
 
 // // Keyboard controls
 // window.addEventListener('keydown', function(event) {
