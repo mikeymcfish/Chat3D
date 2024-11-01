@@ -55,13 +55,16 @@ function handleAssistantResponse(data) {
     const message = extractMessage(data);
     currentThreadId = data.thread_id;
     addMessage('assistant', message);
-    
-    // Handle any actions
-    if (data.actions) {
-        data.actions.forEach(action => {
+
+    // Recursively search for actions in the JSON object
+    const actions = findActions(data);
+
+    // Handle any actions found
+    if (actions.length > 0) {
+        actions.forEach(action => {
             switch (action.name) {
                 case 'highlight_object':
-                    highlightObject(action.parameters.mesh_name, action.parameters.color);
+                    highlightObject(action.parameters.mesh_name, action.parameters.color, action.parameters.label_text);
                     break;
                 case 'zoom_to_object':
                     zoomToObject(action.parameters.mesh_name);
@@ -75,6 +78,27 @@ function handleAssistantResponse(data) {
             }
         });
     }
+}
+
+// Utility function to recursively find actions in a JSON object
+function findActions(obj) {
+    let actions = [];
+
+    if (Array.isArray(obj)) {
+        obj.forEach(item => {
+            actions = actions.concat(findActions(item));
+        });
+    } else if (typeof obj === 'object' && obj !== null) {
+        for (const key in obj) {
+            if (key === 'actions' && Array.isArray(obj[key])) {
+                actions = actions.concat(obj[key]);
+            } else {
+                actions = actions.concat(findActions(obj[key]));
+            }
+        }
+    }
+
+    return actions;
 }
 
 // Chat input handler
