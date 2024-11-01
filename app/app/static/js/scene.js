@@ -41,6 +41,7 @@ export function highlightObject(meshName, color = '#00FFFF', labelText = meshNam
         highlightMaterial.emissiveIntensity = 1.5;
         highlightMaterial.color.setHex(0x000000);
         mesh.material = highlightMaterial;
+        zoomToObject(meshName);
         
         // Add label if text is provided
         if (labelText) {
@@ -63,7 +64,7 @@ export function zoomToObject(meshName) {
     // Ensure the function is correctly defined and exported
     console.log('Attempting to zoom to:', meshName);
     const mesh = meshes[meshName];
-    console.log(meshes);
+    // console.log(meshes);
     if (mesh) {
         console.log('Found mesh to zoom to:', meshName);
         const box = new THREE.Box3().setFromObject(mesh);

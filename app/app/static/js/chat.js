@@ -1,12 +1,11 @@
 // static/js/chat.js
 import { highlightObject, resetHighlight, zoomToObject } from './scene.js';
-
 let currentThreadId = null;
 
 function addMessage(role, content) {
     const messageDiv = document.createElement('div');
     messageDiv.classList.add('message', `${role}-message`);
-    messageDiv.textContent = content;
+    messageDiv.innerHTML = marked.parse(content); // Convert Markdown to HTML
     document.getElementById('chat-messages').appendChild(messageDiv);
     messageDiv.scrollIntoView({ behavior: 'smooth' });
 }
