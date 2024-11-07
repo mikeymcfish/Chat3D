@@ -112,10 +112,20 @@
         font-family: inherit;
         font-size: 1rem;
         transition: border-color 0.2s;
+        margin-top: auto;
+        margin-bottom: 0px;
+    }
+    #chat-messages {
+        bottom:0px;
     }
     #chat-input:focus {
         border-color: #007bff;
         box-shadow: 0 0 0 2px rgba(0,123,255,0.25);
+    }
+    .instructions {
+        font-weight: light;
+        color: grey;
+        font-size: .9em;
     }
     .mesh-label {
     color: #FFFFFF;
@@ -140,7 +150,13 @@
     <div id="container">
         <div id="scene-container"></div>
         <div id="chat-container">
-            <div id="chat-messages"></div>
+            
+            <div id="chat-messages">
+                <span class="instructions">
+                    Try asking the iLab <i>"Show me where the soldering iron is"</i> or <i>"Which kind of adhesive is best for attaching wood and styrofoam?"</i>
+                </span>
+            </div>
+            
             <input type="text" id="chat-input" placeholder="Type your message...">
         </div>
     </div>

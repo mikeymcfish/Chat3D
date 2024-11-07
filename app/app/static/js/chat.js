@@ -108,6 +108,7 @@ chatInput.addEventListener('keypress', async function(e) {
         addMessage('user', message);
         chatInput.value = '';
         chatInput.disabled = true;
+        chatInput.placeholder = 'Thinking...'; // Set placeholder to "Thinking..."
 
         try {
             const response = await fetch('/api/chat', {
@@ -127,6 +128,7 @@ chatInput.addEventListener('keypress', async function(e) {
             addMessage('error', `Error: ${error.message}`);
         } finally {
             chatInput.disabled = false;
+            chatInput.placeholder = 'Type your message...'; // Restore original placeholder
             chatInput.focus();
         }
     }

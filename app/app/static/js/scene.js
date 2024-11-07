@@ -210,6 +210,9 @@ function init() {
                         child.material.needsUpdate = true;
                         child.material.metalness = 0.2;
                         child.material.roughness = 0.8;
+                        child.material.clippingPlanes = [clippingPlane];
+                        child.material.clipIntersection = true; // Optional: clips where planes intersect
+                        child.material.transparent = false
                         // child.material.transparent = false; // Disable transparency
                         // child.material.opacity = 1.0; // Ensure full opacity
                         // child.material.color = 0x00ffff;
@@ -217,6 +220,7 @@ function init() {
                         console.log('No material found for mesh:', child.name);
                         child.material = new THREE.MeshLambertMaterial({ color: 0x00ff00 });
                     }
+                    
                     child.castShadow = true;
                     child.receiveShadow = true;
                 }
@@ -256,10 +260,57 @@ function init() {
     labelRenderer.domElement.style.top = '0';
     labelRenderer.domElement.style.pointerEvents = 'none';
     document.getElementById('scene-container').appendChild(labelRenderer.domElement);
+    renderer.localClippingEnabled = true; // Enable local clipping
+    clippingPlane = new THREE.Plane(new THREE.Vector3(30, -10, 0), 0); // Adjust position as needed
+    planeHelper = new THREE.PlaneHelper(clippingPlane, 5, 0xff0000); // size and color for visibility
+    scene.add(planeHelper); 
+    planeHelper.visible = clippingEnabled; 
+    setupClippingPlaneGUI();
 
+    // toggleClippingPlane();
     animate();
     
 }
+
+function setupClippingPlaneGUI() {
+    const gui = new GUI();
+    const clippingPlaneFolder = gui.addFolder('Clipping Plane');
+
+    // Position controls
+    clippingPlaneFolder.add(clippingPlane, 'constant', -10, 10).name('Offset')
+        .onChange(() => console.log(`Clipping Plane Offset: ${clippingPlane.constant}`));
+
+    // Rotation controls
+    const planeRotation = {
+        rotationX: clippingPlane.normal.x,
+        rotationY: clippingPlane.normal.y,
+        rotationZ: clippingPlane.normal.z,
+    };
+
+    clippingPlaneFolder.add(planeRotation, 'rotationX', -1, 1).step(0.01)
+        .name('Rotation X')
+        .onChange((value) => {
+            clippingPlane.normal.x = value;
+            console.log(`Clipping Plane Rotation X: ${value}`);
+        });
+
+    clippingPlaneFolder.add(planeRotation, 'rotationY', -1, 1).step(0.01)
+        .name('Rotation Y')
+        .onChange((value) => {
+            clippingPlane.normal.y = value;
+            console.log(`Clipping Plane Rotation Y: ${value}`);
+        });
+
+    clippingPlaneFolder.add(planeRotation, 'rotationZ', -1, 1).step(0.01)
+        .name('Rotation Z')
+        .onChange((value) => {
+            clippingPlane.normal.z = value;
+            console.log(`Clipping Plane Rotation Z: ${value}`);
+        });
+
+    clippingPlaneFolder.open();
+}
+
 
 function animate() {
     requestAnimationFrame(animate);
@@ -387,7 +438,16 @@ function createLabelForObject(meshName, labelText) {
     
     scene.add(group);
 }
+let clippingPlane = new THREE.Plane(new THREE.Vector3(0, -1, 0), 0); // Define a clipping plane
+let clippingEnabled = true; // State to track if clipping is enabled
+let planeHelper; // Declare a variable for the plane helper
 
+function toggleClippingPlane() {
+    clippingEnabled = !clippingEnabled;
+    renderer.clippingPlanes = clippingEnabled ? [clippingPlane] : [];
+    planeHelper.visible = clippingEnabled; // Toggle the visibility of the plane helper
+    console.log(`Clipping plane ${clippingEnabled ? 'enabled' : 'disabled'}`);
+}
 
 function removeLabelFromObject(meshName) {
     const label = labels.get(meshName);
