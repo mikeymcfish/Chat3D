@@ -42,7 +42,7 @@ export function highlightObject(meshName, color = '#00FFFF', labelText = meshNam
         highlightMaterial.color.setHex(0x000000);
         mesh.material = highlightMaterial;
         zoomToObject(meshName);
-        
+       
         // Add label if text is provided
         if (labelText) {
             createLabelForObject(meshName, labelText);
@@ -84,10 +84,10 @@ export function zoomToObject(meshName) {
 
 function init() {
     console.log('Initializing scene...');
-    
+   
     scene = new THREE.Scene();
     scene.background = new THREE.Color(0xcccccc);
-    
+   
     const aspect = window.innerWidth / window.innerHeight;
     const frustumSize = 10;
     camera = new THREE.OrthographicCamera(
@@ -101,25 +101,26 @@ function init() {
     camera.position.set(5, 5, 5);
     camera.lookAt(0, 0, 0);
 
-    renderer = new THREE.WebGLRenderer({ 
+    renderer = new THREE.WebGLRenderer({
         antialias: true,
         alpha: true,
         logarithmicDepthBuffer: true,
-        powerPreference: 'high-performance'
+        powerPreference: 'default'
     });
     renderer.setSize(window.innerWidth - 300, window.innerHeight);
     renderer.setPixelRatio(Math.min(window.devicePixelRatio, 2));
     renderer.outputColorSpace = THREE.SRGBColorSpace;
 
-    renderer.shadowMap.enabled = true;
+    renderer.shadowMap.enabled = false;
     renderer.shadowMap.type = THREE.PCFSoftShadowMap;
 
     const container = document.getElementById('scene-container');
     container.appendChild(renderer.domElement);
 
     // Setup post-processing
+   
     composer = new EffectComposer(renderer);
-    
+   
     const renderPass = new RenderPass(scene, camera);
 
 
@@ -133,14 +134,15 @@ function init() {
     saoPass.params.saoBlur = true;
     saoPass.enabled = true;
     composer.addPass( saoPass );
-    const bloomPass = new UnrealBloomPass(new THREE.Vector2(window.innerWidth, window.innerHeight), 0.45, 0.1, 0.85);
-    composer.addPass(bloomPass);
+    //const bloomPass = new UnrealBloomPass(new THREE.Vector2(window.innerWidth, window.innerHeight), 0.45, 0.1, 0.85);
+    //composer.addPass(bloomPass);
 
     const outputPass = new OutputPass();
     composer.addPass(outputPass);
 
-    fxaaPass = new ShaderPass(FXAAShader);
-    composer.addPass(fxaaPass);
+    //fxaaPass = new ShaderPass(FXAAShader);
+    //composer.addPass(fxaaPass);
+   
     // // Init gui
     // const gui = new GUI();
     // gui.add( saoPass.params, 'output', {
@@ -189,11 +191,11 @@ function init() {
     // Load GLB model
     const loader = new GLTFLoader();
     console.log('Starting model load...');
-    
-    loader.load('/static/models/your-model.glb', 
+   
+    loader.load('/static/models/your-model.glb',
         function(gltf) {
             console.log('Model loaded successfully');
-            
+           
             gltf.scene.scale.set(3,3,3);
             scene.add(gltf.scene);
             let meshNames = [];  // Array to collect mesh names
@@ -210,8 +212,8 @@ function init() {
                         child.material.needsUpdate = true;
                         child.material.metalness = 0.2;
                         child.material.roughness = 0.8;
-                        child.material.clippingPlanes = [clippingPlane];
-                        child.material.clipIntersection = true; // Optional: clips where planes intersect
+                        //child.material.clippingPlanes = [clippingPlane];
+                        //child.material.clipIntersection = true; // Optional: clips where planes intersect
                         child.material.transparent = false
                         // child.material.transparent = false; // Disable transparency
                         // child.material.opacity = 1.0; // Ensure full opacity
@@ -220,7 +222,7 @@ function init() {
                         console.log('No material found for mesh:', child.name);
                         child.material = new THREE.MeshLambertMaterial({ color: 0x00ff00 });
                     }
-                    
+                   
                     child.castShadow = true;
                     child.receiveShadow = true;
                 }
@@ -231,11 +233,11 @@ function init() {
             const box = new THREE.Box3().setFromObject(gltf.scene);
             const center = new THREE.Vector3();
             box.getCenter(center);
-            
+           
             const size = new THREE.Vector3();
             box.getSize(size);
             const maxDim = Math.max(size.x, size.y, size.z);
-            
+           
             camera.position.set(
                 center.x + maxDim,
                 center.y + maxDim,
@@ -260,16 +262,16 @@ function init() {
     labelRenderer.domElement.style.top = '0';
     labelRenderer.domElement.style.pointerEvents = 'none';
     document.getElementById('scene-container').appendChild(labelRenderer.domElement);
-    renderer.localClippingEnabled = true; // Enable local clipping
-    clippingPlane = new THREE.Plane(new THREE.Vector3(30, -10, 0), 0); // Adjust position as needed
-    planeHelper = new THREE.PlaneHelper(clippingPlane, 5, 0xff0000); // size and color for visibility
-    scene.add(planeHelper); 
-    planeHelper.visible = clippingEnabled; 
-    setupClippingPlaneGUI();
+    //renderer.localClippingEnabled = true; // Enable local clipping
+    //clippingPlane = new THREE.Plane(new THREE.Vector3(30, -10, 0), 0); // Adjust position as needed
+    //planeHelper = new THREE.PlaneHelper(clippingPlane, 5, 0xff0000); // size and color for visibility
+    //scene.add(planeHelper);
+    //planeHelper.visible = clippingEnabled;
+    //setupClippingPlaneGUI();
 
     // toggleClippingPlane();
     animate();
-    
+   
 }
 
 function setupClippingPlaneGUI() {
@@ -324,7 +326,7 @@ window.addEventListener('resize', () => {
     const container = document.getElementById('scene-container');
     const width = window.innerWidth - 300;
     const height = window.innerHeight;
-    
+   
     // Update camera aspect ratio
     const aspect = width / height;
     const frustumSize = 10;
@@ -333,12 +335,12 @@ window.addEventListener('resize', () => {
     camera.top = frustumSize / 2;
     camera.bottom = -frustumSize / 2;
     camera.updateProjectionMatrix();
-    
+   
     // Update renderer and composer
     renderer.setSize(width, height);
     composer.setSize(width, height);
     saoPass.setSize(width, height);
-    
+   
     // Update FXAA resolution
     const pixelRatio = renderer.getPixelRatio();
     fxaaPass.material.uniforms['resolution'].value.x = 1 / (width * pixelRatio);
@@ -374,34 +376,34 @@ window.addEventListener('resize', () => {
 function createLabelForObject(meshName, labelText) {
     const mesh = meshes[meshName];
     if (!mesh) return;
-    
+   
     // Create HTML label
     const labelDiv = document.createElement('div');
     labelDiv.className = 'mesh-label';
     labelDiv.textContent = labelText;
-    
+   
     // Create Three.js label
     const label = new CSS2DObject(labelDiv);
-    
+   
     // Get mesh bounds and position label higher above it
     const boundingBox = new THREE.Box3().setFromObject(mesh);
     const center = new THREE.Vector3();
     boundingBox.getCenter(center);
     const height = boundingBox.max.y - boundingBox.min.y;
-    
+   
     // Position label higher above the mesh (2x the height of the object)
     label.position.copy(center);
     label.position.y = boundingBox.max.y + (height) + 1.75;
-    
+   
     // Create and position arrow
     const arrowGeometry = new THREE.ConeGeometry(0.1, 0.3, 8);
-    const arrowMaterial = new THREE.MeshBasicMaterial({ 
+    const arrowMaterial = new THREE.MeshBasicMaterial({
         color: 0x0,
         opacity: 0.8,
-        transparent: true 
+        transparent: true
     });
     const arrow = new THREE.Mesh(arrowGeometry, arrowMaterial);
-    
+   
     // Adjust arrow position
     const arrowPosition = new THREE.Vector3(
         center.x,
@@ -410,7 +412,7 @@ function createLabelForObject(meshName, labelText) {
     );
     arrow.position.copy(arrowPosition);
     arrow.rotation.x = Math.PI;
-    
+   
     // Create curved line
     const points = [
         label.position,
@@ -420,22 +422,22 @@ function createLabelForObject(meshName, labelText) {
     const curve = new THREE.CatmullRomCurve3(points);
     const linePoints = curve.getPoints(50);
     const lineGeometry = new THREE.BufferGeometry().setFromPoints(linePoints);
-    const lineMaterial = new THREE.LineBasicMaterial({ 
+    const lineMaterial = new THREE.LineBasicMaterial({
         color: 0x0,
         opacity: 0.8,
         transparent: true
     });
     const line = new THREE.Line(lineGeometry, lineMaterial);
-    
+   
     // Group arrow and line
     const group = new THREE.Group();
     group.add(arrow);
     group.add(line);
     group.add(label);
-    
+   
     // Store for later removal
     labels.set(meshName, group);
-    
+   
     scene.add(group);
 }
 let clippingPlane = new THREE.Plane(new THREE.Vector3(0, -1, 0), 0); // Define a clipping plane
