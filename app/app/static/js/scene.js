@@ -465,96 +465,96 @@ document.addEventListener('DOMContentLoaded', function() {
     const microphoneIcon = document.getElementById('microphone-icon');
     const iconElement = microphoneIcon.querySelector('i');
 
-    microphoneIcon.addEventListener('click', async function() {
-        if (!isRecording) {
-            // Start recording
-            isRecording = true;
-            microphoneIcon.style.backgroundColor = 'red';
-            iconElement.classList.remove('fa-microphone');
-            iconElement.classList.add('fa-stop');
-    
-            try {
-                // Request microphone access and start recording
-                const stream = await navigator.mediaDevices.getUserMedia({ audio: true });
-                const mediaRecorder = new MediaRecorder(stream);
-                const audioChunks = [];
-    
-                mediaRecorder.ondataavailable = event => {
-                    audioChunks.push(event.data);
-                };
-    
-                mediaRecorder.start();
-    
-                // Store mediaRecorder for later use
-                microphoneIcon.mediaRecorder = mediaRecorder;
-                microphoneIcon.audioChunks = audioChunks;
-    
-            } catch (error) {
-                console.error("Error accessing the microphone:", error);
-            }
-    
-        } else {
-            // Stop recording
-            isRecording = false;
-            microphoneIcon.style.backgroundColor = '#248bf5';
-            iconElement.classList.remove('fa-stop');
-            iconElement.classList.add('fa-hourglass');
-            microphoneIcon.classList.add('processing'); // Add processing class
-            microphoneIcon.disabled = true; // Disable the icon during processing
-    
-            // Stop recording logic here
-            const mediaRecorder = microphoneIcon.mediaRecorder;
-            mediaRecorder.stop();
-    
-            mediaRecorder.onstop = async () => {
-                try {
-                    const audioBlob = new Blob(microphoneIcon.audioChunks, { type: 'audio/wav' });
-                    const formData = new FormData();
-                    formData.append('file', audioBlob, 'audio.wav');
-    
-                    // Send audio to Whisper for transcription
-                    const whisperResponse = await fetch('/api/whisper', {
-                        method: 'POST',
-                        body: formData
-                    });
-    
-                    if (!whisperResponse.ok) {
-                        throw new Error('Error in Whisper API response');
-                    }
-    
-                    const whisperData = await whisperResponse.json();
-                    const transcript = whisperData.transcript;
-    
-                    // Send transcript to the chat endpoint
-                    const chatResponse = await fetch('/api/chat', {
-                        method: 'POST',
-                        headers: {
-                            'Content-Type': 'application/json',
-                        },
-                        body: JSON.stringify({
-                            message: transcript,
-                            thread_id: currentThreadId
-                        })
-                    });
-    
-                    if (!chatResponse.ok) {
-                        throw new Error('Error in Chat API response');
-                    }
-    
-                    const chatData = await chatResponse.json();
-                    handleAssistantResponse(chatData);
-    
-                } catch (error) {
-                    console.error("Error processing audio:", error);
-                } finally {
-                    iconElement.classList.remove('fa-hourglass');
-                    iconElement.classList.add('fa-microphone');
-                    microphoneIcon.classList.remove('processing'); // Remove processing class
-                    microphoneIcon.disabled = false; // Re-enable the icon after processing
-                }
+microphoneIcon.addEventListener('click', async function() {
+    if (!isRecording) {
+        // Start recording
+        isRecording = true;
+        microphoneIcon.style.backgroundColor = 'red';
+        iconElement.classList.remove('fa-microphone');
+        iconElement.classList.add('fa-stop');
+
+        try {
+            // Request microphone access and start recording
+            const stream = await navigator.mediaDevices.getUserMedia({ audio: true });
+            const mediaRecorder = new MediaRecorder(stream);
+            const audioChunks = [];
+
+            mediaRecorder.ondataavailable = event => {
+                audioChunks.push(event.data);
             };
+
+            mediaRecorder.start();
+
+            // Store mediaRecorder for later use
+            microphoneIcon.mediaRecorder = mediaRecorder;
+            microphoneIcon.audioChunks = audioChunks;
+
+        } catch (error) {
+            console.error("Error accessing the microphone:", error);
         }
-    });
+
+    } else {
+        // Stop recording
+        isRecording = false;
+        microphoneIcon.style.backgroundColor = '#248bf5';
+        iconElement.classList.remove('fa-stop');
+        iconElement.classList.add('fa-hourglass');
+        microphoneIcon.classList.add('processing'); // Add processing class
+        microphoneIcon.disabled = true; // Disable the icon during processing
+
+        // Stop recording logic here
+        const mediaRecorder = microphoneIcon.mediaRecorder;
+        mediaRecorder.stop();
+
+        mediaRecorder.onstop = async () => {
+            try {
+                const audioBlob = new Blob(microphoneIcon.audioChunks, { type: 'audio/wav' });
+                const formData = new FormData();
+                formData.append('file', audioBlob, 'audio.wav');
+
+                // Send audio to Whisper for transcription
+                const whisperResponse = await fetch('/api/whisper', {
+                    method: 'POST',
+                    body: formData
+                });
+
+                if (!whisperResponse.ok) {
+                    throw new Error('Error in Whisper API response');
+                }
+
+                const whisperData = await whisperResponse.json();
+                const transcript = whisperData.transcript;
+
+                // Send transcript to the chat endpoint
+                const chatResponse = await fetch('/api/chat', {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json',
+                    },
+                    body: JSON.stringify({
+                        message: transcript,
+                        thread_id: currentThreadId
+                    })
+                });
+
+                if (!chatResponse.ok) {
+                    throw new Error('Error in Chat API response');
+                }
+
+                const chatData = await chatResponse.json();
+                handleAssistantResponse(chatData);
+
+            } catch (error) {
+                console.error("Error processing audio:", error);
+            } finally {
+                iconElement.classList.remove('fa-hourglass');
+                iconElement.classList.add('fa-microphone');
+                microphoneIcon.classList.remove('processing'); // Remove processing class
+                microphoneIcon.disabled = false; // Re-enable the icon after processing
+            }
+        };
+    }
+});
 });
 
 

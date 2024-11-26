@@ -141,8 +141,25 @@
     pointer-events: none;
     white-space: nowrap;
     box-shadow: 0 2px 4px rgba(0,0,0,0.2);
-    transform: translate(-50%, -50%);
+    transform: translate(-10%, -50%);
     }
+    .caption {
+       position: absolute;
+       top: 0;
+       width: 90%;
+       margin-left: 5%;
+       background: rgba(255, 255, 255, 0.1);
+       color: black;
+       text-align: center;
+        overflow-y: auto;  /* Enable vertical scrolling */
+        margin-bottom: 20px;
+        padding: 10px;
+       font-size: 1.4rem;
+       max-height: calc(1.4rem * 3);
+       font-family: 'SanFrancisco', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+
+       /* box-shadow: 0 -2px 4px rgba(0, 0, 0, 0.2); */
+   }
 
     #microphone-icon {
         position: fixed; /* Ensures it stays in place when scrolling */
@@ -179,6 +196,7 @@
     </div>
     <div id="container">
         <div id="scene-container"></div>
+        <div id="caption" class="caption"></div>
         <div id="chat-container">
             
             <div id="chat-messages">

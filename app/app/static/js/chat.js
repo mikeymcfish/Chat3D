@@ -55,8 +55,35 @@ export async function handleAssistantResponse(data) {
     currentThreadId = data.thread_id;
     addMessage('assistant', message);
 
-    // Send the assistant's response to TTS
-    try {
+    // Update the caption text
+    const captionElement = document.getElementById('caption');
+    captionElement.innerHTML = marked.parse(message);
+
+
+    // Recursively search for actions in the JSON object
+    const actions = findActions(data);
+
+    // Handle any actions found
+    if (actions.length > 0) {
+        actions.forEach(action => {
+            switch (action.name) {
+                case 'highlight_object':
+                    highlightObject(action.parameters.mesh_name, action.parameters.color, action.parameters.label_text);
+                    break;
+                case 'zoom_to_object':
+                    zoomToObject(action.parameters.mesh_name);
+                    break;
+                case 'reset_highlight':
+                    resetHighlight(action.parameters.mesh_name);
+                    break;
+                default:
+                    console.log(`Unknown action: ${action.name}`);
+            }
+        });
+    }
+
+     // Send the assistant's response to TTS
+     try {
         const ttsResponse = await fetch('/api/tts', {
             method: 'POST',
             headers: {
@@ -82,28 +109,6 @@ export async function handleAssistantResponse(data) {
 
     } catch (error) {
         console.error("Error processing TTS:", error);
-    }
-
-    // Recursively search for actions in the JSON object
-    const actions = findActions(data);
-
-    // Handle any actions found
-    if (actions.length > 0) {
-        actions.forEach(action => {
-            switch (action.name) {
-                case 'highlight_object':
-                    highlightObject(action.parameters.mesh_name, action.parameters.color, action.parameters.label_text);
-                    break;
-                case 'zoom_to_object':
-                    zoomToObject(action.parameters.mesh_name);
-                    break;
-                case 'reset_highlight':
-                    resetHighlight(action.parameters.mesh_name);
-                    break;
-                default:
-                    console.log(`Unknown action: ${action.name}`);
-            }
-        });
     }
 }
 
