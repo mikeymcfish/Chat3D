@@ -2,6 +2,8 @@
 <!DOCTYPE html>
 <html>
 <head>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+
     <title>3D Scene Viewer</title>
     <style>
         body { 
@@ -18,12 +20,13 @@
         height: 100%;
     }
     #chat-container {
-        width: 35%;
+        width: 0%;
         padding: 20px;
         background: #f8f9fa;
         display: flex;
         flex-direction: column;
         font-family: 'SanFrancisco', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+        display:none;
     }
     #chat-messages {
         flex: 1;
@@ -139,7 +142,27 @@
     white-space: nowrap;
     box-shadow: 0 2px 4px rgba(0,0,0,0.2);
     transform: translate(-50%, -50%);
-}
+    }
+
+    #microphone-icon {
+        position: fixed; /* Ensures it stays in place when scrolling */
+        bottom: 20px; /* Distance from the bottom of the viewport */
+        right: 20px; /* Distance from the right of the viewport */
+        background-color: #248bf5; /* Button color */
+        color: white; /* Icon color */
+        border-radius: 50%; /* Makes it circular */
+        width: 80px; /* Width of the button */
+        height: 80px; /* Height of the button */
+        display: flex; /* Centers the icon */
+        align-items: center; /* Centers the icon vertically */
+        justify-content: center; /* Centers the icon horizontally */
+        cursor: pointer; /* Changes cursor to pointer on hover */
+        box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2); /* Adds shadow for depth */
+        z-index: 1000; /* Ensures it floats on top of other elements */
+        font-size: 2rem; /* Increases the icon size */
+    }
+
+
 
     </style>
     
@@ -147,6 +170,9 @@
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&display=swap" rel="stylesheet">
 </head>
 <body>
+    <div id="microphone-icon" class="microphone-icon">
+        <i class="fas fa-microphone"></i>
+    </div>
     <div id="container">
         <div id="scene-container"></div>
         <div id="chat-container">
@@ -174,5 +200,7 @@
     <!-- Load our separate modules -->
     <script type="module" src="{{ url_for('static', filename='js/scene.js') }}"></script>
     <script type="module" src="{{ url_for('static', filename='js/chat.js') }}"></script>
+    <!-- Add this inside the body tag -->
+    
 </body>
 </html>

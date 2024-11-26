@@ -4,7 +4,9 @@ import json
 import time
 import os
 from app.mesh_data import MeshDataManager
-
+import whisper
+import pvleopard
+import tempfile
 
 main = Blueprint('main', __name__)
 client = OpenAI(api_key=os.getenv('OPENAI_API_KEY'))
@@ -16,10 +18,88 @@ def get_mesh_info():
     """Endpoint to get all mesh information"""
     return jsonify(mesh_manager.get_all_mesh_info())
 
+leopard = pvleopard.create(access_key='TH9yS5xchLqSFS2mKrhHZWfw6bWAZg7M7vPZG/WWfyRP/T6mywKIFg==')
+def process_with_whisper(audio_file):
+    # Save the uploaded file to a temporary location
+    with tempfile.NamedTemporaryFile(delete=False) as temp_file:
+        audio_file.save(temp_file.name)
+        temp_file_path = temp_file.name
 
+    # Process the audio file with Leopard
+    transcript, words = leopard.process_file(temp_file_path)
+    print(transcript)
+    for word in words:
+        print(
+            "{word=\"%s\" start_sec=%.2f end_sec=%.2f confidence=%.2f}"
+            % (word.word, word.start_sec, word.end_sec, word.confidence)
+        )
+    
+    # Optionally, delete the temporary file after processing
+    os.remove(temp_file_path)
+
+    return transcript
+    
 @main.route('/')
 def index():
     return render_template('index.html')
+
+@main.route('/api/whisper', methods=['POST'])
+def whisper():
+    audio_file = request.files['file']
+    # Process the audio file with Whisper
+    transcript = process_with_whisper(audio_file)
+    return jsonify({'transcript': transcript})
+
+@main.route('/api/tts', methods=['POST'])
+def tts():
+    text = request.json.get('text')
+    # Generate speech with OpenAI TTS
+    audio_url = generate_speech(text)
+    return jsonify({'audio_url': audio_url})
+
+def generate_speech(text):
+    """
+    Generate speech audio from text using OpenAI's TTS API
+    
+    Args:
+        text (str): Text to be converted to speech
+    
+    Returns:
+        str: URL or path to the generated audio file
+    """
+    try:
+        # Generate speech using OpenAI's TTS
+        speech_response = client.audio.speech.create(
+            model="tts-1-hd",  # You can also use "tts-1-hd" for higher quality
+            voice="echo",  # Options: alloy, echo, fable, onyx, nova, shimmer
+            input=text,
+            speed = 1.25
+        )
+        
+        # Create a unique filename for the audio
+        import os
+        import uuid
+        
+        # Construct the full path to the static/audio directory
+        base_dir = os.path.dirname(os.path.abspath(__file__))
+        audio_dir = os.path.join(base_dir, 'static', 'audio')
+        
+        # Ensure static/audio directory exists
+        os.makedirs(audio_dir, exist_ok=True)
+        
+        # Generate a unique filename
+        filename = f'speech_{uuid.uuid4()}.mp3'
+        full_path = os.path.join(audio_dir, filename)
+        
+        # Write the audio to a file
+        speech_response.stream_to_file(full_path)
+        
+        # Return the URL path to the audio file
+        return f'/static/audio/{filename}'
+    
+    except Exception as e:
+        print(f"Error generating speech: {e}")
+        return None
 
 @main.route('/api/chat', methods=['POST'])
 def chat():

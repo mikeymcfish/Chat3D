@@ -1,6 +1,6 @@
 // static/js/chat.js
 import { highlightObject, resetHighlight, zoomToObject } from './scene.js';
-let currentThreadId = null;
+export let currentThreadId = null;
 
 function addMessage(role, content) {
     const messageDiv = document.createElement('div');
@@ -45,7 +45,7 @@ function extractMessage(data) {
     return message;
 }
 
-function handleAssistantResponse(data) {
+export async function handleAssistantResponse(data) {
     if (data.error) {
         addMessage('error', `Error: ${data.error}`);
         return;
@@ -54,6 +54,31 @@ function handleAssistantResponse(data) {
     const message = extractMessage(data);
     currentThreadId = data.thread_id;
     addMessage('assistant', message);
+
+    // Send the assistant's response to TTS
+    try {
+        const ttsResponse = await fetch('/api/tts', {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json',
+            },
+            body: JSON.stringify({ text: message })
+        });
+
+        if (!ttsResponse.ok) {
+            throw new Error('Error in TTS API response');
+        }
+
+        const ttsData = await ttsResponse.json();
+        const audioUrl = ttsData.audio_url;
+
+        // Play the audio response
+        const audio = new Audio(audioUrl);
+        audio.play();
+
+    } catch (error) {
+        console.error("Error processing TTS:", error);
+    }
 
     // Recursively search for actions in the JSON object
     const actions = findActions(data);
@@ -73,7 +98,6 @@ function handleAssistantResponse(data) {
                     break;
                 default:
                     console.log(`Unknown action: ${action.name}`);
-                    break;
             }
         });
     }

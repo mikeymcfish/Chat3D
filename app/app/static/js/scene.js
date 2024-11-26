@@ -1,4 +1,5 @@
 import * as THREE from 'three';
+import { currentThreadId, handleAssistantResponse } from './chat.js';
 import { OrbitControls } from 'three/addons/controls/OrbitControls.js';
 import { GLTFLoader } from 'three/addons/loaders/GLTFLoader.js';
 import { EffectComposer } from 'three/addons/postprocessing/EffectComposer.js';
@@ -107,7 +108,7 @@ function init() {
         logarithmicDepthBuffer: true,
         powerPreference: 'default'
     });
-    renderer.setSize(window.innerWidth - 300, window.innerHeight);
+    renderer.setSize(window.innerWidth, window.innerHeight);
     renderer.setPixelRatio(Math.min(window.devicePixelRatio, 2));
     renderer.outputColorSpace = THREE.SRGBColorSpace;
 
@@ -458,5 +459,115 @@ function removeLabelFromObject(meshName) {
         labels.delete(meshName);
     }
 }
+
+document.addEventListener('DOMContentLoaded', function() {
+    let isRecording = false;
+    const microphoneIcon = document.getElementById('microphone-icon');
+    const iconElement = microphoneIcon.querySelector('i');
+
+    document.addEventListener('DOMContentLoaded', function() {
+        let isRecording = false;
+        const microphoneIcon = document.getElementById('microphone-icon');
+        const iconElement = microphoneIcon.querySelector('i');
+    
+        microphoneIcon.addEventListener('click', async function() {
+            if (!isRecording) {
+                // Start recording
+                isRecording = true;
+                microphoneIcon.style.backgroundColor = 'red';
+                iconElement.classList.remove('fa-microphone');
+                iconElement.classList.add('fa-stop');
+    
+                try {
+                    // Request microphone access and start recording
+                    const stream = await navigator.mediaDevices.getUserMedia({ audio: true });
+                    const mediaRecorder = new MediaRecorder(stream);
+                    const audioChunks = [];
+    
+                    mediaRecorder.ondataavailable = event => {
+                        audioChunks.push(event.data);
+                    };
+    
+                    mediaRecorder.start();
+    
+                    // Store mediaRecorder for later use
+                    microphoneIcon.mediaRecorder = mediaRecorder;
+                    microphoneIcon.audioChunks = audioChunks;
+    
+                } catch (error) {
+                    console.error("Error accessing the microphone:", error);
+                }
+    
+            } else {
+                // Stop recording
+                isRecording = false;
+                microphoneIcon.style.backgroundColor = '#248bf5';
+                iconElement.classList.remove('fa-stop');
+                iconElement.classList.add('fa-hourglass');
+                microphoneIcon.disabled = true;
+    
+                // Stop recording logic here
+                const mediaRecorder = microphoneIcon.mediaRecorder;
+                mediaRecorder.stop();
+    
+                mediaRecorder.onstop = async () => {
+                    try {
+                        const audioBlob = new Blob(microphoneIcon.audioChunks, { type: 'audio/wav' });
+                        const formData = new FormData();
+                        formData.append('file', audioBlob, 'audio.wav');
+    
+                        // Send audio to Whisper for transcription
+                        const whisperResponse = await fetch('/api/whisper', {
+                            method: 'POST',
+                            body: formData
+                        });
+    
+                        if (!whisperResponse.ok) {
+                            throw new Error('Error in Whisper API response');
+                        }
+    
+                        const whisperData = await whisperResponse.json();
+                        const transcript = whisperData.transcript;
+    
+                        // Send transcript to OpenAI for TTS
+                        const ttsResponse = await fetch('/api/tts', {
+                            method: 'POST',
+                            headers: {
+                                'Content-Type': 'application/json',
+                            },
+                            body: JSON.stringify({ text: transcript })
+                        });
+    
+                        if (!ttsResponse.ok) {
+                            throw new Error('Error in TTS API response');
+                        }
+    
+                        const ttsData = await ttsResponse.json();
+                        const audioUrl = ttsData.audio_url;
+    
+                        // Play the audio response
+                        const audio = new Audio(audioUrl);
+                        audio.play();
+    
+                        // After playback, reset the icon
+                        audio.onended = () => {
+                            iconElement.classList.remove('fa-hourglass');
+                            iconElement.classList.add('fa-microphone');
+                            microphoneIcon.disabled = false;
+                        };
+    
+                    } catch (error) {
+                        console.error("Error processing audio:", error);
+                        iconElement.classList.remove('fa-hourglass');
+                        iconElement.classList.add('fa-microphone');
+                        microphoneIcon.disabled = false;
+                    }
+                };
+            }
+        });
+    });
+    
+});
+
 
 init();

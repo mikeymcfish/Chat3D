@@ -13,7 +13,9 @@
     display: flex;
     flex-direction: column;
     font-family: 'SanFrancisco', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+    display:none;
 }
+
 #chat-messages {
     flex: 1;
     overflow-y: auto;
