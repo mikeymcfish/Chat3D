@@ -57,6 +57,46 @@ def tts():
     audio_url = generate_speech(text)
     return jsonify({'audio_url': audio_url})
 
+
+@main.route('/api/delete-audio', methods=['POST'])
+def delete_audio():
+    audio_url = request.json.get('audio_url')
+    if not audio_url:
+        return jsonify({'error': 'No audio URL provided'}), 400
+
+    # Construct the full path to the audio file
+    base_dir = os.path.dirname(os.path.abspath(__file__))
+    audio_path = os.path.join(base_dir, audio_url.lstrip('/'))
+    
+    # Log the audio path
+    print(f"Attempting to delete audio file at: {audio_path}")
+
+    try:
+        if os.path.exists(audio_path):
+            os.remove(audio_path)
+            return jsonify({'success': True})
+        else:
+            print("File not found:", audio_path)
+            return jsonify({'error': 'File not found'}), 404
+    except Exception as e:
+        return jsonify({'error': str(e)}), 500
+    audio_url = request.json.get('audio_url')
+    if not audio_url:
+        return jsonify({'error': 'No audio URL provided'}), 400
+
+    # Construct the full path to the audio file
+    base_dir = os.path.dirname(os.path.abspath(__file__))
+    audio_path = os.path.join(base_dir, 'static', audio_url.lstrip('/'))
+
+    try:
+        if os.path.exists(audio_path):
+            os.remove(audio_path)
+            return jsonify({'success': True})
+        else:
+            return jsonify({'error': 'File not found'}), 404
+    except Exception as e:
+        return jsonify({'error': str(e)}), 500
+
 def generate_speech(text):
     """
     Generate speech audio from text using OpenAI's TTS API
@@ -70,7 +110,7 @@ def generate_speech(text):
     try:
         # Generate speech using OpenAI's TTS
         speech_response = client.audio.speech.create(
-            model="tts-1-hd",  # You can also use "tts-1-hd" for higher quality
+            model="tts-1",  # You can also use "tts-1-hd" for higher quality
             voice="echo",  # Options: alloy, echo, fable, onyx, nova, shimmer
             input=text,
             speed = 1.25

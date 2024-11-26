@@ -425,8 +425,9 @@ function createLabelForObject(meshName, labelText) {
     const lineGeometry = new THREE.BufferGeometry().setFromPoints(linePoints);
     const lineMaterial = new THREE.LineBasicMaterial({
         color: 0x0,
-        opacity: 0.8,
-        transparent: true
+        opacity: 1,
+        transparent: true,
+        linewidth: 5
     });
     const line = new THREE.Line(lineGeometry, lineMaterial);
    

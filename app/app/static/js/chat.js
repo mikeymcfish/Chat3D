@@ -102,9 +102,22 @@ export async function handleAssistantResponse(data) {
         // Play the audio response
         const audio = new Audio(audioUrl);
         audio.play();
-        audio.onended = () => {
-            microphoneIcon.classList.remove('processing'); // Remove processing class
-            microphoneIcon.disabled = false; // Re-enable the microphone icon
+        audio.onended = async () => {
+           // microphoneIcon.classList.remove('processing'); // Remove processing class
+            //microphoneIcon.disabled = false; // Re-enable the microphone icon
+        // Delete the temporary audio file
+        try {
+            await fetch('/api/delete-audio', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json',
+                },
+                body: JSON.stringify({ audio_url: audioUrl })
+            });
+            console.log("deleted audio");
+        } catch (error) {
+            console.error("Error deleting audio file:", error);
+        }
         };
 
     } catch (error) {
