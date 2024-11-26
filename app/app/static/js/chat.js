@@ -75,6 +75,10 @@ export async function handleAssistantResponse(data) {
         // Play the audio response
         const audio = new Audio(audioUrl);
         audio.play();
+        audio.onended = () => {
+            microphoneIcon.classList.remove('processing'); // Remove processing class
+            microphoneIcon.disabled = false; // Re-enable the microphone icon
+        };
 
     } catch (error) {
         console.error("Error processing TTS:", error);
